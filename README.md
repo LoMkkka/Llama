@@ -30,3 +30,14 @@ erDiagram
        Have collector
        and scraper
     }
+```
+
+
+## С чего начать?
+
+Terraform и Openstack.
+
+создать [сервесного пользователя](https://docs.selectel.ru/cloud/servers/tools/openstack/#создать-сервисного-пользователя) и [настроить авторизацию](https://docs.selectel.ru/cloud/servers/tools/openstack/#настроить-авторизацию)
+Убедитесь, что у вас скачен свой личный openrc.sh
+Необходимые terraform-providers уже имеются в данном репозитории
+
