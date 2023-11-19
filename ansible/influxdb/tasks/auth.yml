@@ -1,0 +1,16 @@
+- name: =========================== Disable influxdb authentication ===========================
+  lineinfile:
+    path: "/etc/influxdb/influxdb.conf"
+    line: "  auth-enabled = true"
+    insertafter: |
+      "  # Determines whether user authentication is enabled over HTTP/HTTPS."
+    state: absent
+
+- name: =========================== Create influxdb user ===========================
+  shell:
+    cmd: |
+      echo "CREATE USER {{ influxdb_user_username }} WITH password '{{ influxdb_user_password }}' WITH ALL PRIVILEGES" \
+          | influx -host {{ influxdb_http_ip }} -port {{ influxdb_http_port }} \
+          && touch /etc/influxdb/.admin_created
+    creates: /etc/influxdb/.admin_created
+

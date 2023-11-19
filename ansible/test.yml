@@ -1,0 +1,10 @@
+---
+- name: My first ping
+  hosts: all
+  connection: ssh
+  tasks:
+    - name: Ping my hosts
+      ansible.builtin.ping:
+    - name: Print message
+      ansible.builtin.debug:
+        msg: Hello world

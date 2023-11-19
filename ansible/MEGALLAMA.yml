@@ -1,0 +1,7 @@
+---
+- name: =========================== Deploying Grallama ===========================
+  hosts: all
+
+- import_playbook: influxdb.yml
+- import_playbook: llama.yml
+- import_playbook: grafana.yml

@@ -1,0 +1,9 @@
+---
+- name: =========================== Install Influxdb v1.8.10 on Master ===========================
+  hosts: module_master_fip_tf
+  become: yes
+  ignore_errors: true
+  gather_facts: no
+
+  roles:
+    - influxdb
