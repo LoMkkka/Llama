@@ -1,8 +1,0 @@
----
-- name: =========================== Deploying LLAMA ===========================
-  hosts: all
-  gather_facts: no
-
-- import_playbook: llama/reflector.yml
-- import_playbook: llama/collector.yml
-- import_playbook: llama/scraper.yml
