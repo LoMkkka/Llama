@@ -5,7 +5,7 @@
 
 LLAMA (Loss and Latency MAtrix) - это библиотека для тестирования и измерения сетевых потерь и задержек между распределенными конечными точками.
 
-Collector отправляет UDP-пакет (зонд) на прослушиваемый порт reflector тем самым дает информацию о rtt 
+Collector отправляет UDP-пакет (зонд) на прослушиваемый порт reflector и измеряет, сколько времени требуется для их возврата.
 
 Architecture
 - Reflector - Lightweight daemon for receiving probes and sending them back to their source.
