@@ -37,7 +37,7 @@ erDiagram
 
 Terraform и Openstack.
 
-создать [сервесного пользователя](https://docs.selectel.ru/cloud/servers/tools/openstack/#создать-сервисного-пользователя) и [настроить авторизацию](https://docs.selectel.ru/cloud/servers/tools/openstack/#настроить-авторизацию)
+Первым делом необходимо создать [сервесного пользователя](https://docs.selectel.ru/cloud/servers/tools/openstack/#создать-сервисного-пользователя) и [настроить авторизацию](https://docs.selectel.ru/cloud/servers/tools/openstack/#настроить-авторизацию)
 Убедитесь, что у вас скачен свой личный openrc.sh
 Необходимые terraform-providers уже имеются в данном репозитории
 
