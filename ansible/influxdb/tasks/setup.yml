@@ -1,0 +1,33 @@
+- name: =========================== Update system ===========================
+  shell:
+    cmd: apt update
+- name: =========================== Download influxdb v1.8.10 ===========================
+  get_url:
+    url: https://dl.influxdata.com/influxdb/releases/influxdb_1.8.10_amd64.deb
+    dest: /root/
+- name: =========================== Setup influxdb v1.8.10 ===========================
+  apt:
+    deb: /root/influxdb_1.8.10_amd64.deb
+
+- name: =========================== Set influxdb HTTP IP and port ===========================
+  lineinfile:
+    path: /etc/influxdb/influxdb.conf
+    regexp: '^  # bind-address = ":8086"'
+    line: '  bind-address = "{{ influxdb_http_ip }}:{{ influxdb_http_port }}"'
+    backrefs: true
+  # when: influxdb_http_ip != 'localhost' or influxdb_http_port != 8086
+  # notify: restart influxdb
+
+- name: =========================== Set influxdb dir permissions ===========================
+  file:
+    path: /var/lib/influxdb
+    state: directory
+    owner: influxdb
+    group: influxdb
+    recurse: true
+
+- name: =========================== Ensure influxdb is started and enabled ===========================
+  service:
+    name: influxdb
+    state: started
+    enabled: true

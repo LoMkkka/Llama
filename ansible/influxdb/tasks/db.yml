@@ -1,0 +1,12 @@
+- name: =========================== Create databases ===========================
+  shell:
+      cmd: |
+        echo "CREATE DATABASE llama" \
+        | influx -host {{ influxdb_http_ip }} -port {{ influxdb_http_port }}
+
+- name: =========================== Enable influxdb authentication ===========================
+  lineinfile:
+    path: "/etc/influxdb/influxdb.conf"
+    line: "  auth-enabled = true"
+    insertafter: "  # Determines whether user authentication is enabled over HTTP/HTTPS."
+    state: present

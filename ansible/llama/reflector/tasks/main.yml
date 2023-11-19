@@ -1,0 +1,33 @@
+- name: =========================== Download reflector ===========================
+  copy:
+    src: reflector
+    dest: /usr/local/bin/reflector
+    mode: 0755
+
+- name: =========================== Create file reflector.service ===========================
+  file:
+    path: /etc/systemd/system/reflector.service
+    state: touch
+
+- name: =========================== Setup reflector.service ===========================
+  shell:
+    cmd: |
+      echo "[Unit]
+      Description= Launch reflector
+
+      [Service]
+      User=root
+
+      ExecStart=/usr/local/bin/reflector  -port {{ llama_port_reflector }}
+      Restart=always
+
+      [Install]
+      WantedBy=multi-user.target
+      " > /etc/systemd/system/reflector.service
+
+- name: =========================== Restart reflector.service ===========================
+  service:
+    name: reflector.service
+    state: restarted
+    daemon-reload: true
+    enabled: true

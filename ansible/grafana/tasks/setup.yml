@@ -1,0 +1,19 @@
+- name: =========================== Install dependencies ===========================
+  apt:
+    name: "{{ grafana_dependencies }}"
+    state: present
+
+- name: =========================== Download ===========================
+  get_url:
+    url: "{{ grafana_url }}"
+    dest: /root/
+
+- name: =========================== Setup ===========================
+  apt:
+    deb: /root/{{ grafana_deb }}
+
+- name: =========================== Ensure grafana is started and enabled ===========================
+  service:
+    name: grafana-server
+    state: started
+    enabled: true

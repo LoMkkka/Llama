@@ -1,0 +1,6 @@
+---
+influxdb_http_ip: localhost
+influxdb_http_port: 5086
+influxdb_query_logging: false
+influxdb_user_username: "test12" #${influxdb_user_username}
+influxdb_user_password: "privet" #${influxdb_user_password}
