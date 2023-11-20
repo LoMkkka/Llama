@@ -37,9 +37,21 @@ erDiagram
 
 Terraform и Openstack.
 
-Первым делом необходима авторизация с Openstack API. Это можно сделать по нашей докуменатции: [Создание сервесного пользователя](https://docs.selectel.ru/cloud/servers/tools/openstack/#создать-сервисного-пользователя) и [Настройка авторизации](https://docs.selectel.ru/cloud/servers/tools/openstack/#настроить-авторизацию)
+Первым делом необходима авторизация с Openstack API. Это можно сделать по нашей докуменатции: [Создание сервесного пользователя](https://docs.selectel.ru/cloud/servers/tools/openstack/#создать-сервисного-пользователя) и [Настройка авторизации](https://docs.selectel.ru/cloud/servers/tools/openstack/#настроить-авторизацию).
 
+
+openstack cli ????
+
+Если вы работаете с нового сервера, то можно запустить скрипт `setup.sh`, который установит (обновит) необходимые компаненты для дальнейшей работы. ?№?№?№?№
+
+`terraform init`
+`terraform plan` просмотреть, что создатся
+`terraform apply`
+
+в nodes/main.tf в ресурсе `openstack_compute_instance_v2` откомментиваем `admin_pass` и пишем нужный на пароль через "".
 Убедитесь, что у вас скачен свой личный openrc.sh
 Необходимые terraform-providers уже имеются в данном репозитории
 
-Публичный ключ для нод?
+Делаем jump-сервер
+touch ~/.ssh/config
+ansible-playbook test.yml 

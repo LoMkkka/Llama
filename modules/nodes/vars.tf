@@ -1,9 +1,3 @@
-# Значение SSH-ключа для доступа к облачному серверу!!! указать путь
-variable "public_key" {
-  type    = string
-  default = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC/ksUHmYkdzRAM4DHuyXAmRrzCluYs34QQc6IsEKwe/Jl6t0+ggvFl0I5XZUXCZAxcaS6Tiyq0zWfFQm4oupz2rqVFUjg8Fo3Cwb5mJsqhn9e33d3Gj2mDvhe5o/QvpCTUoFJcXICR56q2eFgkpVkD+1DTgI3g5Zs7T3uqbD5ehT8h7f/0C0lL5eXa9mGouCGABWSqHcpBzo52jCuw5im3VVSY2Xd4AOFxMFU1y2hMXM9ig/eyc9W2U+0j7+S3PbFGTaFUgBa51ws7WCqcMgf//8wXszO5MVAocUJh3nFYtSjQ2nlZz3ewhjnBNQ/FiAVQaiFdHZBRaMIYNStEfAkx9qwCaHr8MuQX+vbxsquPCTbcPbjUg+eYYnMV4G7VHHvhhbLx3SAYpJ52S4FUZzUlszE3SyV+ZyDtm6aR2pz3IbUpahL9l/g63tqksLpwXg9JOx+rAjd3qhlSyNKJOUo6ZTauVxveHkdOB5dw0Ns6G8gTX+CgS6gsW+gf8ChCfAE= golovitskii.d@golovitskii-d"
-}
-
 # Сегмент пула
 variable "az_zone" {
   default = "ru-3b"
@@ -33,7 +27,7 @@ variable "int_count" {
   default = 3
 }
 
-# #указать пусть
-variable "pvt_key" {
-  default   = "/root/.ssh/id_rsa"
+# Значение SSH-ключа для доступа к облачному серверу (вставить свой)
+variable "public_key" {
+  default = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDWjPmr+OGpRitW1ybZXl34cKR46Hoiku8FS2w8Ng0BS6WVHS1G7ylxQ6tyJsejI8LLw1mGscjlp3jNf4sIXp8OiH73xrf5N10JgF1aBs0MQQD7sQvwaf9OxH2Q5YTcgmDFZ/hkDcRFvgsgIqDXNyHNf+47IqOJbPqU4td0xwnAwYOr4Q0Itn6K1nH4nko0nhxm7HqoLGgNeZzcmjB0EmsDTfovbtjNHf+/SG/tDV5vQg80SLEcQzRR/jt52LU/t/jev+NaHd3MQRVrD5665UVMj8JAa73TVKmswHda0QDrJXX35i6Aipb4i4Q4bhJgZWSAxnDm3ble6W4WqEHg1Jix5LAup9LjhaaM/Wnsj/JUijlr+NHX4uD7RlXRWXFU9HmSMp31jwAx2wVHpWeVAL/3U3HuEM4WZX5HpGA+7apZ5k4wdCdodg+Hi0+aIF31AbQDOW79m3vu1vTY0uaPm6qCi0Fkd+09MOtE2kDPBGyKZPkzt/lUt01XMShotc9BQes= root@node2"
 }

@@ -8,10 +8,11 @@ terraform {
     }
   }
 }
-resource "openstack_compute_keypair_v2" "key_tf" {
-  name       = "node_key"
-  public_key = var.public_key
-}
+
+# resource "openstack_compute_keypair_v2" "key_tf" {
+#   name       = "master_key"
+#   #public_key = var.public_key
+# }
 
 # Поиск ID образа (из которого будет создан сервер) по его имени
 data "openstack_images_image_v2" "ubuntu_image" {
@@ -55,11 +56,9 @@ resource "openstack_blockstorage_volume_v3" "volume_server" {
 resource "openstack_compute_instance_v2" "server_tf" {
   count             = var.int_count
   name              = "node-${count.index + 1}"
+  key_pair          = "master_key"
   flavor_id         = openstack_compute_flavor_v2.flavor_server.id
-  key_pair          = openstack_compute_keypair_v2.key_tf.name
   availability_zone = var.az_zone
-
-
   network {
     name = "network_tf"
   }
