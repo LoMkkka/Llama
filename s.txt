@@ -1,0 +1,50 @@
+1. Должна выполняться bash команда "terraform-inventory -inventory ./terraform > hosts.ini" 
+2. В файле hosts.ini ищется строка [module_master_fip_tf], смотрит следующую строку после нее (это нужный ip) 
+и подставляет результат в переменную $jump_ip данной записи и после чего записывает это в файл  ~/.ssh/config
+
+Host 10.10.1.*
+    StrictHostKeyChecking no
+    User root
+    ProxyJump root@$jump_ip
+
+либо просто чтоб можно было выполнить эту команду "jump_ip=`sed -n '/\[module_master_fip_tf\]/,+1p'  ansible/hosts.ini | sed -n '2p'`
+echo "Host 10.10.1.*
+    StrictHostKeyChecking no
+    User root
+    ProxyJump root@$jump_ip" >  ~/.ssh/config"
+
+
+3. В файле abvg.txt нужно сделать следующее:
+3.1 Взять строку из файла hosts.ini. Найти строку [module_master_server_tf], взять следующую строку под ней (тобишь ip) 
+и подставить в значени  "put_ip_master" (19я строка )
+3.2.1 Взять строку из файла hosts.ini. Найти строку [module_nodes_server_tf], взять пул ip (кол-во в итоге может быть любым)
+и подставить в node_ip.
+3.2.2 При запуске запрашивается число, где требуется указать кол-во нод. 
+Результат, например, 3, должен быть записан как 1, 2, 3 и записан в node-number
+Вот текст с которым нужно работать:
+    - ip: node_ip
+      port: 14000
+      tags:
+        src_hostname: Master-node
+        dst_hostname: node-number
+Он должен находиться в конце файла
+Например. Я ввожу число 3 и у меня есть 3 ip: 10.10.0.2, 10.10.0.3, 10.10.0.4
+Что должно быть на выходе
+
+    - ip: 10.10.0.2
+      port: 14000
+      tags:
+        src_hostname: Master-node
+        dst_hostname: node-1
+    - ip: 10.10.0.3
+      port: 14000
+      tags:
+        src_hostname: Master-node
+        dst_hostname: node-2
+    - ip: 10.10.0.4
+      port: 14000
+      tags:
+        src_hostname: Master-node
+        dst_hostname: node-3
+
+4. Весь результат каждого пункта записать в файл complex_example.yaml

@@ -55,6 +55,4 @@ Terraform и Openstack.
 touch ~/.ssh/config
 ansible-playbook test.yml 
 
-в файле `complex_example.yaml`     ip: 10.10.1.9 #адрес приватной сети Master!!!`
-
 ansible-value alert.yaml
