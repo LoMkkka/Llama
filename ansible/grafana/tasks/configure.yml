@@ -1,4 +1,4 @@
-- name: Copy file with owner and permissions
+- name: =========================== Copy file with owner and permissions ===========================
   copy:
     src: datasource.yaml
     dest: /etc/grafana/provisioning/datasources
@@ -6,7 +6,7 @@
     group: root
     mode: "0644"
 
-- name: Copy dashboards
+- name: =========================== Copy dashboards ===========================
   copy:
     src: dashboards
     dest: /etc/grafana
@@ -14,7 +14,7 @@
     group: root
     mode: "0644"
 
-- name: Copy dashboard-provider file with owner and permissions
+- name: =========================== Copy dashboard-provider file with owner and permissions ===========================
   copy:
     src: dashboard-provider.yaml
     dest: /etc/grafana/provisioning/dashboards
