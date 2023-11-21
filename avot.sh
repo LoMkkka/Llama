@@ -25,15 +25,20 @@
 
 
 # Пример списка 1
-readarray list1 < 
-
+readarray list1 < hosts.ini
+#readarray list2 < hosts.ini
+read num
+readarray list2 <<< "$(seq $num)"
+echo $(seq "$num")
 # Пример списка 2
-list2=("red" "yellow" "purple")
+#asd=$(seq "$num")
+#list2=$(seq "$num")
 
 # Получаем количество элементов в первом списке
 length=${#list1[@]}
 
-# Итерируем по индексам списков
+
+echo Итерируем по индексам списков
 for ((i=0; i<$length; i++)); do
     element1="${list1[$i]}"
     element2="${list2[$i]}"
