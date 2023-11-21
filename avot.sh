@@ -1,47 +1,42 @@
 #!/bin/bash
 
-# Проверяем наличие аргументов
-# if [ "$#" -ne 2 ]; then
-#     echo "Использование: $0 <файл> <слово_для_замены>"
-#     exit 1
-# fi
-
-
-
+terraform-inventory -inventory ./terraform > ~/Llama/ansible/hosts.ini
+jump_ip=`sed -n '/\[module_master_fip_tf\]/,+1p'  ansible/hosts.ini | sed -n '2p'`
+echo "Host 10.10.1.*
+    StrictHostKeyChecking no
+    User root
+    ProxyJump root@$jump_ip" >  ~/.ssh/config
 
 # put_master_ip
-# # Считываем аргументы
-# file1="text.txt"
-# file2="ss.txt"
-# word_to_replace="put_master_ip"
-# word_to_input=`sed -n '/\[module_master_server_tf\]/,+1p'  abvg.txt | sed -n '2p'`
-# # Проверяем, существует ли файл
-# if [ ! -e "$file1" ]; then
-#     echo "Файл $file1 не найден."
-#     exit 1
-# fi
-# # Заменяем слово в файле и сохраняем изменения
-# sed -i "s/\b$word_to_replace\b/$word_to_input/g" "$file1" >> "$file2" 
+# Считываем аргументы
+file1="text.txt"
+file2="ss.txt"
+word_to_replace="put_master_ip"
+word_to_input=`sed -n '/\[module_master_server_tf\]/,+1p'  abvg.txt | sed -n '2p'`
+echo $word_to_input
+# Проверяем, существует ли файл
+if [ ! -e "$file1" ]; then
+    echo "Файл $file1 не найден."
+    exit 1
+fi
+# Заменяем слово в файле и сохраняем изменения
+sed -i "s/\b$word_to_replace\b/$word_to_input/g" "$file1" >> "$file2" 
 
 
-# Пример списка 1
-readarray list1 < hosts.ini
-#readarray list2 < hosts.ini
-read num
-readarray list2 <<< "$(seq $num)"
-echo $(seq "$num")
-# Пример списка 2
-#asd=$(seq "$num")
-#list2=$(seq "$num")
-
-# Получаем количество элементов в первом списке
-length=${#list1[@]}
-
-
-echo Итерируем по индексам списков
-for ((i=0; i<$length; i++)); do
-    element1="${list1[$i]}"
-    element2="${list2[$i]}"
-    
-    echo "Element 1: $element1, Element 2: $element2"
-done
+# echo Введитек количество нод
+# read num
+# readarray list1 < hosts.ini
+# readarray list2 <<< "$(seq $num)"
+# # Получаем количество элементов в первом списке
+# length=${#list1[@]}
+# #Итерация по индексам списка
+# for ((i=0; i<$length; i++)); do
+#     element1="${list1[$i]}"
+#     element2="${list2[$i]}"
+#     echo -n "
+#     - ip: $element1      port: 14000
+#       tags:
+#         src_hostname: Master-node
+#         dst_hostname: node-$((element2))
+#         " 
+# done
