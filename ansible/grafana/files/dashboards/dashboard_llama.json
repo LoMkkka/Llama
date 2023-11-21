@@ -18,6 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 1,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -41,7 +42,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "text"
+                "color": "text",
+                "value": null
               },
               {
                 "color": "dark-red",
@@ -113,6 +115,7 @@
         "y": 0
       },
       "id": 1,
+      "maxDataPoints": 100,
       "options": {
         "minVizHeight": 75,
         "minVizWidth": 75,
@@ -350,13 +353,13 @@
     "list": []
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "llama",
   "uid": "d13b6062-3a1d-46c3-b87d-6f06057c0da6",
-  "version": 1,
+  "version": 6,
   "weekStart": ""
 }

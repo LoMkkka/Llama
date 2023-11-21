@@ -39,9 +39,11 @@ Terraform и Openstack.
 
 Первым делом необходима авторизация с Openstack API. Это можно сделать по нашей докуменатции: [Создание сервесного пользователя](https://docs.selectel.ru/cloud/servers/tools/openstack/#создать-сервисного-пользователя) и [Настройка авторизации](https://docs.selectel.ru/cloud/servers/tools/openstack/#настроить-авторизацию).
 
-Если вы работаете с нового сервера, то можно запустить скрипт `setup.sh`, который развернет необходимую среду для начала работы.
+Если вы работаете с нового сервера, то можно запустить скрипт `setup.sh`, который развернет необходимую среду для начала работ.
 Файл `.terraformrc` поместить в домашнюю дерикторию `~/`.
 
+Генериурем ssh ключ и добавялем (публичный) его в `~/Llama/terraform/master/vars.tf`
+Убедиться, что вы авторизовались в Openstack API `source rc.sh`
 `terraform init`
 `terraform plan` просмотреть, что создатся
 `terraform apply`
@@ -52,3 +54,7 @@ Terraform и Openstack.
 Делаем jump-сервер
 touch ~/.ssh/config
 ansible-playbook test.yml 
+
+в файле `complex_example.yaml`     ip: 10.10.1.9 #адрес приватной сети Master!!!`
+
+ansible-value alert.yaml

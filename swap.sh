@@ -1,5 +1,5 @@
 #!/bin/bash
-terraform-inventory -inventory ./modules > ~/test/ansible/hosts.ini
+terraform-inventory -inventory ./terraform > ~/Llama/ansible/hosts.ini
 jump_ip=`sed -n '/\[module_master_fip_tf\]/,+1p'  ansible/hosts.ini | sed -n '2p'`
 echo "Host 10.10.1.*
     StrictHostKeyChecking no
