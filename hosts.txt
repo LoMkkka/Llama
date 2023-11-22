@@ -1,0 +1,6 @@
+[module_nodes_server_tf]
+10.10.1.46
+10.10.1.248
+10.10.1.234
+
+[module_nodes_server_tf_0]

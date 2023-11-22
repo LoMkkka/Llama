@@ -3,16 +3,8 @@ terraform {
     openstack = {
       source = "terraform-provider-openstack/openstack"
     }
-    selectel = {
-      source = "selectel/selectel"
-    }
   }
 }
-
-# resource "openstack_compute_keypair_v2" "key_tf" {
-#   name       = "master_key"
-#   #public_key = var.public_key
-# }
 
 # Поиск ID образа (из которого будет создан сервер) по его имени
 data "openstack_images_image_v2" "ubuntu_image" {

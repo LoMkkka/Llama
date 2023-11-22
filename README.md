@@ -55,4 +55,5 @@ Terraform и Openstack.
 touch ~/.ssh/config
 ansible-playbook test.yml 
 
-ansible-value alert.yaml
+Файл `alert.yaml` запаролен.
+ansible-vault decrypt  grafana/files/alert.yaml

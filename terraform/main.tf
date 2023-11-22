@@ -3,9 +3,6 @@ terraform {
     openstack = {
       source = "terraform-provider-openstack/openstack"
     }
-    selectel = {
-      source = "selectel/selectel"
-    }
   }
 }
 
