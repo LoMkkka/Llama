@@ -114,6 +114,7 @@
         "y": 0
       },
       "id": 1,
+      "maxDataPoints": 1000,
       "interval": "1m",
       "options": {
         "minVizHeight": 75,
