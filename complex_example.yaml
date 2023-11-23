@@ -60,4 +60,6 @@ tests:
 # included for each target.
 targets:
   default:
+$host_ip_list
+$hosts
 #

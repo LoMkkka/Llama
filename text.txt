@@ -60,19 +60,4 @@ tests:
 # included for each target.
 targets:
   default:
-    - ip: new_word #
-      port: 14000
-      tags:
-        src_hostname: Master-node
-        dst_hostname: node-1
-    - ip: new_word #
-      port: 14000
-      tags:
-        src_hostname: Master-node
-        dst_hostname: node-2
-
-    - ip: new_word #
-      port: 14000
-      tags:
-        src_hostname: Master-node
-        dst_hostname: node-3
+#

@@ -1,17 +1,19 @@
 #!/bin/bash
 
-# terraform-inventory -inventory ./terraform > ~/Llama/ansible/hosts.ini
-# jump_ip=`sed -n '/\[module_master_fip_tf\]/,+1p'  ansible/hosts.ini | sed -n '2p'`
-# echo "Host 10.10.1.*
-#     StrictHostKeyChecking no
-#     User root
-#     ProxyJump root@$jump_ip" >  ~/.ssh/config
+terraform-inventory -inventory ./terraform > ~/Llama/ansible/hosts.ini
+jump_ip=`sed -n '/\[module_master_fip_tf\]/,+1p'  ansible/hosts.ini | sed -n '2p'`
+echo "Host 10.10.1.*
+    StrictHostKeyChecking no
+    User root
+    ProxyJump root@$jump_ip" >  ~/.ssh/config
 
-# Считываем аргументы
+
+#Считываем аргументы
+ path_hosts="ansible/hosts.ini"
 # file1="abvg.txt"
-# file2="ss.txt"
+# file2="complex_example.yaml"
 # word_to_replace="put_ip_master"
-# word_to_input=`sed -n '/\[module_master_server_tf\]/,+1p'  hosts.ini | sed -n '2p'`
+# word_to_input=`sed -n '/\[module_master_server_tf\]/,+1p'  $path_hosts | sed -n '2p'`
 # echo $word_to_input
 # # Проверяем, существует ли файл
 # if [ ! -e "$file1" ]; then
@@ -20,12 +22,13 @@
 # fi
 # # Заменяем слово в файле и сохраняем изменения
 # sed  "s/\b$word_to_replace\b/$word_to_input/g" "$file1" > "$file2" 
+
+
 echo Введитек количество нод
 read num
-# # hosts=`sed -n '/\[module_nodes_server_tf\]/p'  hosts.txt  | sed -n 'p' ` 
-file="hosts.txt"
+
 hosts=`sed -n '/\[module_nodes_server_tf\]/,/\[module_nodes_server_tf_0\]/{p;/\ \
-[module_nodes_server_tf_0\]/q}' "$file" | sed -n "2,$((num+1))p" `
+[module_nodes_server_tf_0\]/q}' "$path_hosts" | sed -n "2,$((num+1))p" `
 readarray list1 <<< $hosts
 readarray list2 <<< "$(seq $num)"
 # Получаем количество элементов в первом списке
@@ -39,5 +42,13 @@ for ((i=0; i<$length; i++)); do
       tags:
         src_hostname: Master-node
         dst_hostname: node-$((element2))
-        " 
-done > lol.txt
+        "
+done > text3.txt
+
+insert_text=`cat text3.txt`
+awk -v line=63 -v text="$insert_text" '{
+  if (NR == line) {
+    print text
+  }
+  print $0
+}' "text.txt" > "text2.txt"
