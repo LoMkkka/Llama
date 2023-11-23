@@ -67,7 +67,10 @@ Terraform и Openstack.
 
 Алерт в телеграмме:
 
-![image](https://github.com/LoMkkka/Llama/assets/76530062/e98ff7ca-ef2d-4b51-9a27-f23d77d0fba9)
+![image](https://github.com/LoMkkka/Llama/assets/76530062/e98ff7ca-ef2d-4b51-9a27-f23d77d0fba9) 
+
+- 'B', - текущий Rtt
+- 'C' - статус ноды (1- выключена, 0 - включена) 
 
 
 
