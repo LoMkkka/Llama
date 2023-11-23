@@ -16,7 +16,7 @@ api:
 # The port number used is selected by the OS at runtime.
 ports:
   default:
-    ip: put_ip_master
+    ip: 
     port: 0
     tos: 0
     timeout: 1000
@@ -60,6 +60,4 @@ tests:
 # included for each target.
 targets:
   default:
-$host_ip_list
-$hosts
 #

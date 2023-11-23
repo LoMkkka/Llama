@@ -9,19 +9,19 @@ echo "Host 10.10.1.*
 
 
 #Считываем аргументы
- path_hosts="ansible/hosts.ini"
-# file1="abvg.txt"
-# file2="complex_example.yaml"
-# word_to_replace="put_ip_master"
-# word_to_input=`sed -n '/\[module_master_server_tf\]/,+1p'  $path_hosts | sed -n '2p'`
-# echo $word_to_input
-# # Проверяем, существует ли файл
-# if [ ! -e "$file1" ]; then
-#     echo "Файл $file1 не найден."
-#     exit 1
-# fi
-# # Заменяем слово в файле и сохраняем изменения
-# sed  "s/\b$word_to_replace\b/$word_to_input/g" "$file1" > "$file2" 
+path_hosts="ansible/hosts.ini"
+file1="abvg.txt"
+file2="complex_example.yaml"
+word_to_replace="put_ip_master"
+word_to_input=`sed -n '/\[module_master_server_tf\]/,+1p'  $path_hosts | sed -n '2p'`
+echo $word_to_input
+# Проверяем, существует ли файл
+if [ ! -e "$file1" ]; then
+    echo "Файл $file1 не найден."
+    exit 1
+fi
+# Заменяем слово в файле и сохраняем изменения
+sed  "s/\b$word_to_replace\b/$word_to_input/g" "$file1" > "$file2" 
 
 
 echo Введитек количество нод
@@ -51,4 +51,4 @@ awk -v line=63 -v text="$insert_text" '{
     print text
   }
   print $0
-}' "text.txt" > "text2.txt"
+}' "$file2" > "text3.txt"
