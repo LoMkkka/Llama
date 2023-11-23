@@ -67,8 +67,10 @@ Terraform и Openstack.
 
 Алерт в телеграмме:
 
-![image](https://github.com/LoMkkka/Llama/assets/76530062/e98ff7ca-ef2d-4b51-9a27-f23d77d0fba9)
+![image](https://github.com/LoMkkka/Llama/assets/76530062/e98ff7ca-ef2d-4b51-9a27-f23d77d0fba9) ![image](https://github.com/LoMkkka/Llama/assets/76530062/d807a9b4-2bfa-439f-962e-22ebb36beb67)
 
+- `B` текущий Rtt
+- `C` показатель ошибки, где `1` это ошибка
 
 
 # P.S.
