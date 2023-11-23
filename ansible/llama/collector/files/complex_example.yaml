@@ -16,7 +16,7 @@ api:
 # The port number used is selected by the OS at runtime.
 ports:
   default:
-    ip: 10.10.1.9 #адрес приватной сети Master!!!
+    ip: 10.10.1.208
     port: 0
     tos: 0
     timeout: 1000
@@ -60,19 +60,29 @@ tests:
 # included for each target.
 targets:
   default:
-    - ip: 10.10.1.96 #
+
+    - ip: 10.10.1.200
       port: 14000
       tags:
         src_hostname: Master-node
         dst_hostname: node-1
-    - ip: 10.10.1.205 #
+        
+    - ip: 10.10.1.135
       port: 14000
       tags:
         src_hostname: Master-node
         dst_hostname: node-2
-
-    - ip: 10.10.1.115 #
+        
+    - ip: 10.10.1.215
       port: 14000
       tags:
         src_hostname: Master-node
         dst_hostname: node-3
+        
+    - ip: ы
+      port: 14000
+      tags:
+        src_hostname: Master-node
+        dst_hostname: node-4
+        
+#

@@ -15,8 +15,6 @@
     regexp: '^  # bind-address = ":8086"'
     line: '  bind-address = "{{ influxdb_http_ip }}:{{ influxdb_http_port }}"'
     backrefs: true
-  # when: influxdb_http_ip != 'localhost' or influxdb_http_port != 8086
-  # notify: restart influxdb
 
 - name: =========================== Set influxdb dir permissions ===========================
   file:

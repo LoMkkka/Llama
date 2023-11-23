@@ -6,10 +6,11 @@ terraform {
   }
 }
 
+# Создание SSH ключа
 resource "openstack_compute_keypair_v2" "key_tf" {
   name       = "master_key"
   public_key = var.public_key
-  
+
 }
 
 
@@ -56,7 +57,7 @@ resource "openstack_compute_instance_v2" "server_tf" {
   key_pair          = openstack_compute_keypair_v2.key_tf.id
   availability_zone = var.az_zone
 
-  
+
   network {
     uuid = openstack_networking_network_v2.network_tf.id
   }
