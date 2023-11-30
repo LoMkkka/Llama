@@ -33,12 +33,11 @@ erDiagram
 ```
 
 ### С чего начать?
-## Шаг 0. Требования.
-Данный проект предзначаен только для ubuntu серверов
+## Шаг 0. Требования и напутствия.
+Данный проект предзначаен **только** для серверов с дистрибутивом **ubuntu**. Доступ к grafana, influxdb и сервисам будет иметь **только root** пользователь.
+Запуск проект происходил с `Ubuntu 20.04 LTS 64-bit`, на других ubuntu дистрибутивах не проверялось.
 Influxdb v1.8.10
 Скачиваем проект `git clone https://github.com/LoMkkka/Llama.git`
-
-
 выпадающее меню пароли
 <details>
 <summary>Корректные названия образов Ubuntu и как должен выглядить кусок кода</summary>
@@ -89,13 +88,13 @@ asdads
 
 Должны увидеть такую картину:
 
-``` python
-PLAY RECAP *******************************************************************************************************
-10.10.1.11                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-10.10.1.114                : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-10.10.1.151                : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-10.10.1.199                : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-45.145.65.25               : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+``` bash
+PLAY RECAP **********************
+10.10.1.11                 : ok=3    
+10.10.1.114                : ok=3       
+10.10.1.151                : ok=3    
+10.10.1.199                : ok=3     
+45.145.65.25               : ok=3      
 ```
 
 ## Шаг 3. Запуск MegaLLama
