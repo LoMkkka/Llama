@@ -43,7 +43,7 @@ Influxdb v1.8.10
 <details>
 <summary>Корректные названия образов Ubuntu и как должен выглядить кусок кода</summary>
 
-``` python3
+``` python
 #Поиск ID образа (из которого будет создан сервер) по его имени
 data "openstack_images_image_v2" "ubuntu_image" {
   most_recent = true
@@ -79,7 +79,24 @@ asdads
 ## Шаг 2. Связность серверов
 После того как серверы созданы, необходимо убедиться, что они имеют связность между собой.
 - Запускаем скрипт `setup2.sh`, который заполняет нужные файлы данными для развертывания проекта.
+
+<details>
+<summary>Что делает `setup2.sh`?</summary>
+asdads
+</details>
+
 - Дважды запускаем `ansible-playbook test.yml` в папке `ansible`, который проверит связность между мастером и нодами.
+
+Должны увидеть такую картину:
+
+``` python
+PLAY RECAP *******************************************************************************************************
+10.10.1.11                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+10.10.1.114                : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+10.10.1.151                : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+10.10.1.199                : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+45.145.65.25               : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+```
 
 ## Шаг 3. Запуск MegaLLama
 
