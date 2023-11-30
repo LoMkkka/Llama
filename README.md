@@ -37,12 +37,14 @@ erDiagram
 Данный проект предзначаен **только** для серверов с дистрибутивом **ubuntu**. Доступ к grafana, influxdb и сервисам будет иметь **только root** пользователь.
 Запуск проект происходил с `Ubuntu 20.04 LTS 64-bit`, на других ubuntu дистрибутивах не проверялось.
 Influxdb v1.8.10
+grafana_10.2.1_amd64 (последняя на других не проверялось)
 Скачиваем проект `git clone https://github.com/LoMkkka/Llama.git`
 выпадающее меню пароли
+Все скачанные программы с официальных репозиторий
 <details>
 <summary>Корректные названия образов Ubuntu и как должен выглядить кусок кода</summary>
 
-``` python
+``` tf
 #Поиск ID образа (из которого будет создан сервер) по его имени
 data "openstack_images_image_v2" "ubuntu_image" {
   most_recent = true
@@ -58,6 +60,8 @@ data "openstack_images_image_v2" "ubuntu_image" {
     
 
 </details>
+
+В самом конце будет пункт про пароли.
 проверенно на
 ## Шаг1. Terraform и Openstack.
 
@@ -84,11 +88,11 @@ asdads
 asdads
 </details>
 
-- Дважды запускаем `ansible-playbook test.yml` в папке `ansible`, который проверит связность между мастером и нодами.
+- **Дважды** запускаем `ansible-playbook test.yml` в папке `ansible`, который проверит связность между мастером и нодами.
 
 Должны увидеть такую картину:
 
-``` bash
+``` yaml
 PLAY RECAP **********************
 10.10.1.11                 : ok=3    
 10.10.1.114                : ok=3       
