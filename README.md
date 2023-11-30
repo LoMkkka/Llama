@@ -37,14 +37,38 @@ erDiagram
 Данный проект предзначаен только для ubuntu серверов
 Influxdb v1.8.10
 Скачиваем проект `git clone https://github.com/LoMkkka/Llama.git`
+
+
 выпадающее меню пароли
+<details>
+<summary>Корректные названия образов Ubuntu и как должен выглядить кусок кода</summary>
+
+``` python3
+#Поиск ID образа (из которого будет создан сервер) по его имени
+data "openstack_images_image_v2" "ubuntu_image" {
+  most_recent = true
+  visibility  = "public"
+  name        = "Ubuntu 20.04 LTS 64-bit" # сюда вставляем название нужного нам образа (не забываем это делать в обоих файлах) 
+}
+```
+
+- Ubuntu 16.04 LTS 64-bit 
+- Ubuntu 18.04 LTS 64-bit 
+- Ubuntu 20.04 LTS 64-bit
+- Ubuntu 22.04 LTS 64-bit 
+    
+
+</details>
 проверенно на
 ## Шаг1. Terraform и Openstack.
 
 Первым делом необходима авторизация с Openstack API. Это можно сделать по нашей документации: [Создание сервисного пользователя](https://docs.selectel.ru/cloud/servers/tools/openstack/#создать-сервисного-пользователя) и [Настройка авторизации](https://docs.selectel.ru/cloud/servers/tools/openstack/#настроить-авторизацию).
 
 Если вы работаете с нового сервера, то можно запустить скрипт `setup1.sh`, который развернет необходимую среду для начала работ.
-
+<details>
+<summary>Что делает `setup1.sh`?</summary>
+asdads
+</details>
 Убедиться, что вы авторизовались в Openstack API через скачанный файл `source rc.sh`.
 
 Далее создаем серверы:
