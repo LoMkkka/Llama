@@ -1,7 +1,7 @@
 # More complex configuration example using the full format.
 # This style provides more fine grained control of the collector's operation.
 
-# Controls how often test results are aggregated/summarized.
+# Controls how оften test results are aggregated/summarized.
 # Only the latest summary is kept and available via the API.
 summarization:
   interval: 30
@@ -16,7 +16,7 @@ api:
 # The port number used is selected by the OS at runtime.
 ports:
   default:
-    ip: 10.10.1.208
+    ip: 10.10.1.27
     port: 0
     tos: 0
     timeout: 1000
@@ -61,28 +61,22 @@ tests:
 targets:
   default:
 
-    - ip: 10.10.1.200
+    - ip: 10.10.1.201
       port: 14000
       tags:
         src_hostname: Master-node
         dst_hostname: node-1
         
-    - ip: 10.10.1.135
+    - ip: 10.10.1.196
       port: 14000
       tags:
         src_hostname: Master-node
         dst_hostname: node-2
         
-    - ip: 10.10.1.215
+    - ip: 10.10.1.155
       port: 14000
       tags:
         src_hostname: Master-node
         dst_hostname: node-3
-        
-    - ip: ы
-      port: 14000
-      tags:
-        src_hostname: Master-node
-        dst_hostname: node-4
         
 #

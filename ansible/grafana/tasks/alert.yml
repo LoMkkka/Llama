@@ -4,10 +4,11 @@
     dest: /etc/grafana/provisioning/alerting
     owner: root
     group: root
-    mode: "0644"
+    mode: 0700
 
 - name: =========================== Enable and start grafana service ===========================
   service:
     name: grafana-server
     enabled: yes
     state: restarted
+    masked: yes

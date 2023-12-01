@@ -5,6 +5,7 @@
   tasks:
     - name: Ping my hosts
       ansible.builtin.ping:
+      when: ansible_os_family == "Debian"
     - name: Print message
       ansible.builtin.debug:
         msg: Hello world

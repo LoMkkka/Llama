@@ -2,18 +2,13 @@
   copy:
     src: collector
     dest: /usr/local/bin/collector
-    mode: 0755
-
-- name: =========================== Download reflector ===========================
-  copy:
-    src: reflector
-    dest: /usr/local/bin/reflector
-    mode: 0755
+    mode: 0700
 
 - name: =========================== Download config for collector ===========================
   copy:
     src: complex_example.yaml
     dest: /root/
+    mode: 0700
 
 - name: =========================== Create file collector.service ===========================
   file:
@@ -42,3 +37,4 @@
     state: restarted
     daemon-reload: true
     enabled: true
+

@@ -2,7 +2,7 @@
   copy:
     src: scraper
     dest: /usr/local/bin/scraper
-    mode: 0755
+    mode: 0700
 
 - name: =========================== Create file scraper.service ===========================
   file:
@@ -31,3 +31,4 @@
     state: restarted
     daemon-reload: true
     enabled: true
+

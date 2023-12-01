@@ -2,7 +2,7 @@
   copy:
     src: reflector
     dest: /usr/local/bin/reflector
-    mode: 0755
+    mode: 0700
 
 - name: =========================== Create file reflector.service ===========================
   file:
@@ -19,7 +19,7 @@
       User=root
 
       ExecStart=/usr/local/bin/reflector  -port {{ llama_port_reflector }}
-      Restart=always
+      Restart=on-failure
 
       [Install]
       WantedBy=multi-user.target
@@ -31,3 +31,4 @@
     state: restarted
     daemon-reload: true
     enabled: true
+
