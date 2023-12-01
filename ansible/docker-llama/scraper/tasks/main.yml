@@ -10,12 +10,6 @@
     dest: /tmp/scraper
     mode: 0700
 
-- name: Копировать config для scraper
-  copy:
-    src: complex_example.yaml #
-    dest: /tmp/complex_example.yaml
-    mode: 0700
-
 - name: Остановить Docker-контейнер (если существует)
   shell:
     cmd: docker stop scraper && docker rm scraper

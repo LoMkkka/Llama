@@ -46,3 +46,4 @@
 
 - import_playbook: docker-llama/reflector.yml
 - import_playbook: docker-llama/collector.yml
+- import_playbook: docker-llama/scraper.yml

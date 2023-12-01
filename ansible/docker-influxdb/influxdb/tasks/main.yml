@@ -1,0 +1,47 @@
+- name: Копировать ###
+  template:
+    src: entrypoint.sh.j2 #
+    dest: /tmp/entrypoint.sh.j2
+    mode: 0700
+
+- name: Копировать reflector ########
+  copy:
+    src: Dockerfile #
+    dest: /tmp/Dockerfile
+    mode: 0700
+
+- name: Копировать influxdb.conf ########
+  copy:
+    src: influxdb.conf #
+    dest: /tmp/influxdb.conf
+    mode: 0700
+
+- name: Остановить Docker-контейнер (если существует)
+  shell:
+    cmd: docker stop influxdb && docker rm influxdb
+  ignore_errors: yes
+
+- name: Удалить старый Docker-образ (если существует)
+  shell:
+    cmd: docker rmi influxdb_image
+  ignore_errors: yes
+
+- name: Собрать Docker-образ
+  shell:
+    cmd: docker build -t influxdb_image /tmp
+  args:
+    chdir: /tmp
+
+- name: Run Docker container
+  docker_container:
+    name: influxdb
+    image: influxdb_image
+    state: started
+    network_mode: host
+    #ports:
+   #   - "{{ llama_port_reflector }}:{{ llama_port_reflector }}"
+
+# apt install python-pip
+# pip install docker
+# sudo apt-get install python3 python3-pip
+# sudo pip3 install docker
