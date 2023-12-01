@@ -1,8 +1,11 @@
 #!/bin/bash
+
+# Установка openstack CLI
+sudo apt install python3-openstackclient
 # Установка Ansible
-apt install ansible -y
+sudo apt install ansible -y
 # Установка Terraform
-snap install terraform --classic 
+sudo snap install terraform --classic 
 # Перенос утилиты 
 mv terraform-inventory /usr/local/bin
 # Генерация ssh ключа

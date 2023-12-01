@@ -10,7 +10,7 @@ terraform {
 data "openstack_images_image_v2" "ubuntu_image" {
   most_recent = true
   visibility  = "public"
-  name        = "Ubuntu 20.04 LTS 64-bit"
+  name        = "Ubuntu 18.04 LTS 64-bit"
 }
 
 # Создание уникального имени флейвора
