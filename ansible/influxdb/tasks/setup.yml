@@ -23,7 +23,7 @@
     owner: influxdb
     group: influxdb
     recurse: true
-    mode: 0700
+    mode: 0755
 
 - name: =========================== Ensure influxdb is started and enabled ===========================
   service:

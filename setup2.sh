@@ -56,4 +56,4 @@ awk -v line=63 -v text="$insert_text" '{
     print text
   }
   print $0
-}' "$file2" > "/root/Llama/ansible/llama/collector/files/complex_example.yaml"
+}' "$file2" > "/root/Llama/ansible/docker-llama/collector/files/complex_example.yaml"

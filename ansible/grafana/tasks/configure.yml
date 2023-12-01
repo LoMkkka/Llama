@@ -2,16 +2,16 @@
   copy:
     src: datasource.yaml
     dest: /etc/grafana/provisioning/datasources
-    mode: 0700
+    mode: 0755
 
 - name: =========================== Copy dashboards ===========================
   copy:
     src: dashboards
     dest: /etc/grafana
-    mode: 0700
+    mode: 0755
 
 - name: =========================== Copy dashboard-provider file with owner and permissions ===========================
   copy:
     src: dashboard-provider.yaml
     dest: /etc/grafana/provisioning/dashboards
-    mode: 0700
+    mode: 0755

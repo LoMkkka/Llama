@@ -1,0 +1,15 @@
+# Используем базовый образ Ubuntu
+FROM ubuntu:latest
+
+# Копируем программу reflector внутрь контейнера
+COPY reflector /usr/local/bin/reflector
+RUN chmod +x /usr/local/bin/reflector
+
+# Устанавливаем рабочую директорию
+WORKDIR /app
+
+EXPOSE {{ llama_port_reflector }}/tcp
+EXPOSE {{ llama_port_reflector }}/udp
+
+# Запускаем программу reflector при запуске контейнера
+CMD ["/usr/local/bin/reflector", "-port", "{{ llama_port_reflector }}"]

@@ -1,0 +1,20 @@
+# Используем базовый образ Ubuntu
+FROM ubuntu:latest
+
+# Копируем программу scraper внутрь контейнера
+COPY scraper /usr/local/bin/scraper
+RUN chmod +x /usr/local/bin/scraper
+
+# Устанавливаем рабочую директорию
+WORKDIR /app
+
+EXPOSE {{ llama_collector_port }}/tcp
+EXPOSE {{ llama_collector_port }}/udp
+
+# Запускаем программу scraper при запуске контейнера
+CMD ["/usr/local/bin/scraper", "-llama.collector-hosts", "{{ llama_collector_hosts }}", "-llama.collector-port", \
+"{{ llama_collector_port }}", "-llama.influxdb-host", "{{ llama_influxdb_host }}", \
+"-llama.influxdb-name", "{{ llama_influxdb_name }}", "--llama.influxdb-pass", \
+"{{ llama_influxdb_pass }}", "-llama.influxdb-port","{{ llama_influxdb_port }}", \
+"-llama.influxdb-user", "{{ llama_influxdb_user }}", "-llama.interval", "{{ llama_interval }}" ]
+

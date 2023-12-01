@@ -1,0 +1,16 @@
+# Используем базовый образ Ubuntu
+FROM ubuntu:latest
+
+# Копируем программу collector внутрь контейнера
+COPY collector /usr/local/bin/collector
+COPY complex_example.yaml /usr/local/bin/complex_example.yaml
+RUN chmod +x /usr/local/bin/collector
+
+# Устанавливаем рабочую директорию
+WORKDIR /app
+
+EXPOSE {{ llama_dst_port }}/tcp
+EXPOSE {{ llama_dst_port }}/udp
+
+# Запускаем программу collector при запуске контейнера
+CMD ["/usr/local/bin/collector", "-llama.dst-port", "{{ llama_dst_port }}", "-llama.config",  "{{ llama_config }}" ]

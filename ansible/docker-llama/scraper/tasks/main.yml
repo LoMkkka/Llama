@@ -1,0 +1,41 @@
+- name: Копировать Dockerfile
+  template:
+    src: Dockerfile.yaml.j2 #
+    dest: /tmp/Dockerfile
+    mode: 0700
+
+- name: Копировать scraper
+  copy:
+    src: scraper #
+    dest: /tmp/scraper
+    mode: 0700
+
+- name: Копировать config для scraper
+  copy:
+    src: complex_example.yaml #
+    dest: /tmp/complex_example.yaml
+    mode: 0700
+
+- name: Остановить Docker-контейнер (если существует)
+  shell:
+    cmd: docker stop scraper && docker rm scraper
+  ignore_errors: yes
+
+- name: Удалить старый Docker-образ (если существует)
+  shell:
+    cmd: docker rmi scraper_image
+  ignore_errors: yes
+
+- name: Собрать Docker-образ
+  shell:
+    cmd: docker build -t scraper_image /tmp
+  args:
+    chdir: /tmp
+
+- name: Run Docker container
+  docker_container:
+    name: scraper
+    image: scraper_image
+    detach: yes
+    network_mode: host
+    state: started

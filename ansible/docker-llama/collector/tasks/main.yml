@@ -1,0 +1,48 @@
+- name: Копировать Dockerfile
+  template:
+    src: Dockerfile.yaml.j2 #
+    dest: /tmp/Dockerfile
+    mode: 0700
+
+- name: Копировать collector
+  copy:
+    src: collector #
+    dest: /tmp/collector
+    mode: 0700
+
+- name: Копировать config для collector
+  copy:
+    src: complex_example.yaml #
+    dest: /tmp/complex_example.yaml
+    mode: 0700
+
+- name: Остановить Docker-контейнер (если существует)
+  shell:
+    cmd: docker stop collector && docker rm collector
+  ignore_errors: yes
+
+- name: Удалить старый Docker-образ (если существует)
+  shell:
+    cmd: docker rmi collector_image
+  ignore_errors: yes
+
+- name: Собрать Docker-образ
+  shell:
+    cmd: docker build -t collector_image /tmp
+  args:
+    chdir: /tmp
+
+- name: Run Docker container
+  docker_container:
+    name: collector
+    image: collector_image
+    detach: yes
+    network_mode: host
+    state: started
+    # ports:
+    #   - "{{ llama_dst_port }}:{{ llama_dst_port }}"
+
+# apt install python-pip
+# pip install docker
+# sudo apt-get install python3 python3-pip
+# sudo pip3 install docker
