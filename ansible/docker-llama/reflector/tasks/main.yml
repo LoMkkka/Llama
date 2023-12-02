@@ -31,8 +31,7 @@
     name: reflector
     image: reflector_image
     state: started
-    ports:
-      - "{{ llama_port_reflector }}:{{ llama_port_reflector }}"
+    network_mode: host
 
 # apt install python-pip
 # pip install docker

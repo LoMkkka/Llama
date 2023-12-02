@@ -38,12 +38,13 @@
         - docker-ce 
         - docker-ce-cli 
         - containerd.io
+        - docker-compose
         state: present
 
     - name: Install Docker Module for Python
       pip:
         name: docker
 
-- import_playbook: docker-llama/reflector.yml
-- import_playbook: docker-llama/collector.yml
-- import_playbook: docker-llama/scraper.yml
+
+- import_playbook: docker-llama/docker_llama.yml
+- import_playbook: docker-influxdb/docker_influxdb.yml

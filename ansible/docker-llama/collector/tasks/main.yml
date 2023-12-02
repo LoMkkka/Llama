@@ -1,19 +1,24 @@
+- name: Создать папку
+  file:
+    path: /tmp/collector
+    state: directory
+
 - name: Копировать Dockerfile
   template:
     src: Dockerfile.yaml.j2 #
-    dest: /tmp/Dockerfile
+    dest: /tmp/collector/Dockerfile
     mode: 0700
 
 - name: Копировать collector
   copy:
     src: collector #
-    dest: /tmp/collector
+    dest: /tmp/collector/collector
     mode: 0700
 
 - name: Копировать config для collector
   copy:
     src: complex_example.yaml #
-    dest: /tmp/complex_example.yaml
+    dest: /tmp/collector/complex_example.yaml
     mode: 0700
 
 - name: Остановить Docker-контейнер (если существует)
@@ -29,8 +34,6 @@
 - name: Собрать Docker-образ
   shell:
     cmd: docker build -t collector_image /tmp
-  args:
-    chdir: /tmp
 
 - name: Run Docker container
   docker_container:
@@ -39,10 +42,3 @@
     detach: yes
     network_mode: host
     state: started
-    # ports:
-    #   - "{{ llama_dst_port }}:{{ llama_dst_port }}"
-
-# apt install python-pip
-# pip install docker
-# sudo apt-get install python3 python3-pip
-# sudo pip3 install docker

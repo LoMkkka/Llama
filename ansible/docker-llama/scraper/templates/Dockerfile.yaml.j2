@@ -9,6 +9,8 @@ WORKDIR /app
 
 EXPOSE {{ llama_collector_port }}/tcp
 EXPOSE {{ llama_collector_port }}/udp
+EXPOSE {{ llama_influxdb_port }}/udp
+EXPOSE {{ llama_influxdb_port }}/tcp
 
 # Запускаем программу scraper при запуске контейнера
 CMD ["/usr/local/bin/scraper", "-llama.collector-hosts", "{{ llama_collector_hosts }}", "-llama.collector-port", \

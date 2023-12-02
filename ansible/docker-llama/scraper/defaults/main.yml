@@ -1,9 +1,9 @@
 ---
-llama_collector_hosts: localhost
+llama_collector_hosts: localhost 
 llama_collector_port: 14000
-llama_influxdb_host: localhost
+llama_influxdb_host: localhost 
 llama_influxdb_name: llama
 llama_influxdb_pass: privet
 llama_influxdb_port: 5086
 llama_influxdb_user: test12
-llama_interval: 30
+llama_interval: 10

@@ -37,7 +37,8 @@ EXPOSE 5086
 
 VOLUME /var/lib/influxdb
 
-COPY entrypoint.sh.j2 /entrypoint.sh.j2
+COPY entrypoint.sh /entrypoint.sh
+COPY init-influxdb.sh.j2 /init-influxdb.sh.j2
 
-#ENTRYPOINT ["/entrypoint.sh.j2"]
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["influxd"]

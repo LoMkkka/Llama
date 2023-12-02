@@ -1,13 +1,18 @@
+- name: Создать папку
+  file:
+    path: /tmp/scraper
+    state: directory
+    
 - name: Копировать Dockerfile
   template:
     src: Dockerfile.yaml.j2 #
-    dest: /tmp/Dockerfile
+    dest: /tmp/scraper/Dockerfile
     mode: 0700
 
 - name: Копировать scraper
   copy:
     src: scraper #
-    dest: /tmp/scraper
+    dest: /tmp/scraper/scraper
     mode: 0700
 
 - name: Остановить Docker-контейнер (если существует)
@@ -22,9 +27,9 @@
 
 - name: Собрать Docker-образ
   shell:
-    cmd: docker build -t scraper_image /tmp
+    cmd: docker build -t scraper_image /tmp/scraper
   args:
-    chdir: /tmp
+    chdir: /tmp/scraper
 
 - name: Run Docker container
   docker_container:
@@ -32,4 +37,5 @@
     image: scraper_image
     detach: yes
     network_mode: host
+    networks_cli_compatible: yes
     state: started

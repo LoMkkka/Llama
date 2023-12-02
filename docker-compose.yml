@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  collector:
+    build:
+      context: /tmp/collector
+      dockerfile: Dockerfile
+    container_name: collector
+    network_mode: "host"
+    ports:
+      - "15000:15000/tcp"
+      - "15000:15000/udp"
+
+  scraper:
+    build:
+      context: /tmp/scraper
+      dockerfile: Dockerfile
+    container_name: scraper
+    network_mode: "host"
+    ports:
+      - "14000:14000/tcp"
+      - "14000:14000/udp"
+      - "5086:5086/tcp"
+      - "5086:5086/udp"
+ 
+  influxdb:
+    build:
+      context: /tmp/influxdb
+      dockerfile: Dockerfile
+    container_name: influxdb
+    network_mode: "host"
+    ports:
+      - "5086:5086/tcp"
+      - "5086:5086/udp"
+  
+  grafana:
+    build:
+      context: /tmp/grafana
+      dockerfile: Dockerfile
+    container_name: grafana
+    network_mode: "host"
+    ports:
+      - "3000:3000/tcp"
+      - "3000:3000/udp"
