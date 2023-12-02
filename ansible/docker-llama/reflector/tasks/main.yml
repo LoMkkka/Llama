@@ -32,6 +32,7 @@
     image: reflector_image
     state: started
     network_mode: host
+    restart_policy: always
 
 # apt install python-pip
 # pip install docker

@@ -114,7 +114,7 @@
         "y": 0
       },
       "id": 1,
-      "maxDataPoints": 1000,
+      "maxDataPoints": 5000,
       "interval": "1m",
       "options": {
         "minVizHeight": 75,
@@ -310,7 +310,7 @@
           "measurement": "raw_stats",
           "orderByTime": "ASC",
           "policy": "autogen",
-          "query": "SELECT last(\"rtt\") FROM \"autogen\".\"raw_stats\" WHERE (\"src_hostname\"::tag = 'master_node') AND $timeFilter GROUP BY time(10s), \"dst_region\"::tag",
+          "query": "SELECT last(\"rtt\") FROM \"autogen\".\"raw_stats\" WHERE (\"src_hostname\"::tag = 'master_node') AND $timeFilter GROUP BY time(1s), \"dst_region\"::tag",
           "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",

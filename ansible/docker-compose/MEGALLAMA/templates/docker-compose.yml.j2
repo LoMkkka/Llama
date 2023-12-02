@@ -11,6 +11,7 @@ services:
     ports:
       - "{{ llama_dst_port }}:{{ llama_dst_port }}/tcp"
       - "{{ llama_dst_port }}:{{ llama_dst_port }}/udp"
+    restart: always
 
   scraper:
     image: scraper_image
@@ -24,7 +25,8 @@ services:
       - "{{ llama_collector_port }}:{{ llama_collector_port }}/udp"
       - "{{ llama_influxdb_port }}:{{ llama_influxdb_port }}/tcp"
       - "{{ llama_influxdb_port }}:{{ llama_influxdb_port }}/udp"
- 
+    restart: always
+
   influxdb:
     image: influxdb_image
     build:
@@ -35,7 +37,8 @@ services:
     ports:
       - "{{ influxdb_http_port }}:{{ influxdb_http_port }}/tcp"
       - "{{ influxdb_http_port }}:{{ influxdb_http_port }}/udp"
-  
+    restart: always
+
   grafana:
     image: grafana_image
     build:
@@ -46,3 +49,4 @@ services:
     ports:
       - "3000:3000/tcp"
       - "3000:3000/udp"
+    restart: always
