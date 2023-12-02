@@ -37,15 +37,15 @@
     cmd: docker rmi influxdb_image
   ignore_errors: yes
 
-- name: Собрать Docker-образ
-  shell:
-    cmd: docker build -t influxdb_image /tmp/influxdb
+# - name: Собрать Docker-образ
+#   shell:
+#     cmd: docker build -t influxdb_image /tmp/influxdb
 
 
-- name: Run Docker container
-  docker_container:
-    name: influxdb
-    image: influxdb_image
-    state: started
-    network_mode: host
+# - name: Run Docker container
+#   docker_container:
+#     name: influxdb
+#     image: influxdb_image
+#     state: started
+#     network_mode: host
 

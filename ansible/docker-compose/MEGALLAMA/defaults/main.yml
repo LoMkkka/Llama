@@ -1,0 +1,5 @@
+---
+influxdb_http_port: 5086
+llama_influxdb_port: 5086
+llama_collector_port: 14000
+llama_dst_port: 15000

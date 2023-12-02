@@ -25,17 +25,17 @@
     cmd: docker rmi scraper_image
   ignore_errors: yes
 
-- name: Собрать Docker-образ
-  shell:
-    cmd: docker build -t scraper_image /tmp/scraper
-  args:
-    chdir: /tmp/scraper
+# - name: Собрать Docker-образ
+#   shell:
+#     cmd: docker build -t scraper_image /tmp/scraper
+#   args:
+#     chdir: /tmp/scraper
 
-- name: Run Docker container
-  docker_container:
-    name: scraper
-    image: scraper_image
-    detach: yes
-    network_mode: host
-    networks_cli_compatible: yes
-    state: started
+# - name: Run Docker container
+#   docker_container:
+#     name: scraper
+#     image: scraper_image
+#     detach: yes
+#     network_mode: host
+#     networks_cli_compatible: yes
+#     state: started

@@ -8,8 +8,8 @@ services:
     container_name: collector
     network_mode: "host"
     ports:
-      - "15000:15000/tcp"
-      - "15000:15000/udp"
+      - "{{ llama_dst_port }}:{{ llama_dst_port }}/tcp"
+      - "{{ llama_dst_port }}:{{ llama_dst_port }}/udp"
 
   scraper:
     build:
@@ -18,10 +18,10 @@ services:
     container_name: scraper
     network_mode: "host"
     ports:
-      - "14000:14000/tcp"
-      - "14000:14000/udp"
-      - "5086:5086/tcp"
-      - "5086:5086/udp"
+      - "{{ llama_collector_port }}:{{ llama_collector_port }}/tcp"
+      - "{{ llama_collector_port }}:{{ llama_collector_port }}/udp"
+      - "{{ llama_influxdb_port }}:{{ llama_influxdb_port }}/tcp"
+      - "{{ llama_influxdb_port }}:{{ llama_influxdb_port }}/udp"
  
   influxdb:
     build:
@@ -30,8 +30,8 @@ services:
     container_name: influxdb
     network_mode: "host"
     ports:
-      - "5086:5086/tcp"
-      - "5086:5086/udp"
+      - "{{ influxdb_http_port }}:{{ influxdb_http_port }}/tcp"
+      - "{{ influxdb_http_port }}:{{ influxdb_http_port }}/udp"
   
   grafana:
     build:

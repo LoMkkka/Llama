@@ -1,0 +1,10 @@
+- name: Копировать ###
+  template:
+    src: docker-compose.yml.j2 #
+    dest: /tmp/docker-compose.yml.j2
+    mode: 0700
+
+- name: Запустить docker-compose
+  docker_compose:
+    project_src: /tmp
+    state: present

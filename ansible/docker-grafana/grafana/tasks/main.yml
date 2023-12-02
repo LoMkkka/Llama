@@ -25,15 +25,14 @@
     cmd: docker rmi grafana_image
   ignore_errors: yes
 
-- name: Собрать Docker-образ
-  shell:
-    cmd: docker build -t grafana_image /tmp
+# - name: Собрать Docker-образ
+#   shell:
+#     cmd: docker build -t grafana_image /tmp
 
 
-- name: Run Docker container
-  docker_container:
-    name: grafana
-    image: grafana_image
-    state: started
-    network_mode: host
-
+# - name: Run Docker container
+#   docker_container:
+#     name: grafana
+#     image: grafana_image
+#     state: started
+#     network_mode: host

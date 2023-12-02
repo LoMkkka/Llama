@@ -48,3 +48,4 @@
 
 - import_playbook: docker-llama/docker_llama.yml
 - import_playbook: docker-influxdb/docker_influxdb.yml
+- import_playbook: docker-compose/docker_MEGALLAMA.yml

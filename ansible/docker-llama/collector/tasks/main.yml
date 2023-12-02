@@ -31,14 +31,14 @@
     cmd: docker rmi collector_image
   ignore_errors: yes
 
-- name: Собрать Docker-образ
-  shell:
-    cmd: docker build -t collector_image /tmp
+# - name: Собрать Docker-образ
+#   shell:
+#     cmd: docker build -t collector_image /tmp
 
-- name: Run Docker container
-  docker_container:
-    name: collector
-    image: collector_image
-    detach: yes
-    network_mode: host
-    state: started
+# - name: Run Docker container
+#   docker_container:
+#     name: collector
+#     image: collector_image
+#     detach: yes
+#     network_mode: host
+#     state: started

@@ -13,8 +13,8 @@ COPY provisioning/dashboards /etc/grafana/dashboards
 # Опционально: добавляем настройки для определенного дашборда
 COPY provisioning/dashboard.yaml /etc/grafana/provisioning/dashboards/
 
-# Если у вас ессть готовый шаблон аларом, то откомментите строку ниже 
-COPY provisioning/alert.yaml     /etc/grafana/provisioning/alerting
+# Если у вас есть готовый шаблон аларом, то откомментите строку ниже 
+#COPY provisioning/alert.yaml     /etc/grafana/provisioning/alerting
 
 USER root
 RUN chown -R 472:472 /etc/grafana/
