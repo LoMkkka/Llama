@@ -2,6 +2,7 @@ version: '3'
 
 services:
   collector:
+    image: collector_image
     build:
       context: /tmp/collector
       dockerfile: Dockerfile
@@ -12,6 +13,7 @@ services:
       - "{{ llama_dst_port }}:{{ llama_dst_port }}/udp"
 
   scraper:
+    image: scraper_image
     build:
       context: /tmp/scraper
       dockerfile: Dockerfile
@@ -24,6 +26,7 @@ services:
       - "{{ llama_influxdb_port }}:{{ llama_influxdb_port }}/udp"
  
   influxdb:
+    image: influxdb_image
     build:
       context: /tmp/influxdb
       dockerfile: Dockerfile
@@ -34,6 +37,7 @@ services:
       - "{{ influxdb_http_port }}:{{ influxdb_http_port }}/udp"
   
   grafana:
+    image: grafana_image
     build:
       context: /tmp/grafana
       dockerfile: Dockerfile

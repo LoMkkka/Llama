@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
+  "id": 1,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -115,7 +115,7 @@
         "y": 0
       },
       "id": 1,
-      "maxDataPoints": 5000,
+      "maxDataPoints": 100,
       "options": {
         "minVizHeight": 75,
         "minVizWidth": 75,
@@ -131,7 +131,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "10.2.2",
+      "pluginVersion": "10.2.1",
       "targets": [
         {
           "datasource": {
@@ -141,7 +141,7 @@
           "groupBy": [
             {
               "params": [
-                "1s"
+                "10s"
               ],
               "type": "time"
             },
@@ -155,7 +155,7 @@
           "measurement": "raw_stats",
           "orderByTime": "ASC",
           "policy": "autogen",
-          "query": "SELECT last(\"rtt\") FROM \"autogen\".\"raw_stats\" WHERE (\"src_hostname\"::tag = 'master_node') AND $timeFilter GROUP BY time(1s), \"dst_region\"::tag",
+          "query": "SELECT last(\"rtt\") FROM \"autogen\".\"raw_stats\" WHERE (\"src_hostname\"::tag = 'master_node') AND $timeFilter GROUP BY time(10s), \"dst_region\"::tag",
           "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
@@ -309,7 +309,7 @@
           "measurement": "raw_stats",
           "orderByTime": "ASC",
           "policy": "autogen",
-          "query": "SELECT last(\"rtt\") FROM \"autogen\".\"raw_stats\" WHERE (\"src_hostname\"::tag = 'master_node') AND $timeFilter GROUP BY time(1s), \"dst_region\"::tag",
+          "query": "SELECT last(\"rtt\") FROM \"autogen\".\"raw_stats\" WHERE (\"src_hostname\"::tag = 'master_node') AND $timeFilter GROUP BY time(10s), \"dst_region\"::tag",
           "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
@@ -353,13 +353,13 @@
     "list": []
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "llama",
   "uid": "d13b6062-3a1d-46c3-b87d-6f06057c0da6",
-  "version": 3,
+  "version": 6,
   "weekStart": ""
 }
