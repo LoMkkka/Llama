@@ -1,6 +1,6 @@
 ---
 - name: =========================== Installing docker-llama ===========================
-  hosts: all
+  hosts: type_openstack_compute_instance_v2
   become: yes
   gather_facts: no
   ignore_errors: true

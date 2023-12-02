@@ -1,9 +1,0 @@
----
-- name: =========================== Installing scraper on Master ===========================
-  hosts: module_master_fip_tf
-  become: yes
-  gather_facts: no
-  ignore_errors: true
-
-  roles:
-    - scraper

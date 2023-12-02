@@ -1,4 +1,4 @@
-version: '3'
+version: '{% if ansible_distribution == "Ubuntu" and ansible_distribution_version == "16.04" %}2{% else %}3{% endif %}'
 
 services:
   collector:

@@ -1,9 +1,0 @@
----
-- name: =========================== Install Grafana on Master ===========================
-  hosts: module_master_fip_tf
-  become: yes
-  ignore_errors: true
-  gather_facts: no 
-  
-  roles:
-    - grafana
