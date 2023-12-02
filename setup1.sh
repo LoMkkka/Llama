@@ -7,11 +7,11 @@ sudo apt install ansible -y
 # Установка Terraform
 sudo snap install terraform --classic 
 # Перенос утилиты 
-mv terraform-inventory /usr/local/bin
+cp terraform-inventory /usr/local/bin
 # Генерация ssh ключа
 ssh-keygen
 # Зеркало
-mv .terraformrc ~/
+cp .terraformrc ~/
 ### Передача ssh ключа в переменную для master  
 ssh_key_path=`cat ~/.ssh/id_rsa.pub`
 echo $ssh_key_path
