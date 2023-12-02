@@ -1,17 +1,9 @@
 #!/bin/bash
-influxd
-echo "CREATE USER {{ influxdb_user_username }} WITH password '{{ influxdb_user_password }}' WITH ALL PRIVILEGES" \
-    | influx -host {{ influxdb_http_ip }} -port {{ influxdb_http_port }} \
-    && touch /etc/influxdb/.admin_created
-echo "CREATE DATABASE llama" \
-| influx -host {{ influxdb_http_ip }} -port {{ influxdb_http_port }}
-#!/bin/bash
 
 # Запустить influxd в фоновом режиме
-influxd &
 
 # Ждать, пока influxd полностью стартует (вместо этого можно использовать более эффективные методы ожидания)
-sleep 5
+#sleep 10
 
 # Выполнить команды в influx
 influx -host {{ influxdb_http_ip }} -port {{ influxdb_http_port }} -execute "CREATE USER {{ influxdb_user_username }} WITH password '{{ influxdb_user_password }}' WITH ALL PRIVILEGES"

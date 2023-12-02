@@ -38,8 +38,6 @@
     image: influxdb_image
     state: started
     network_mode: host
-    #ports:
-   #   - "{{ llama_port_reflector }}:{{ llama_port_reflector }}"
 
 # apt install python-pip
 # pip install docker

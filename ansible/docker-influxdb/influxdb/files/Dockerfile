@@ -39,5 +39,5 @@ VOLUME /var/lib/influxdb
 
 COPY entrypoint.sh.j2 /entrypoint.sh.j2
 
-ENTRYPOINT ["/entrypoint.sh.j2"]
+#ENTRYPOINT ["/entrypoint.sh.j2"]
 CMD ["influxd"]
