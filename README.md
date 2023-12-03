@@ -1,7 +1,21 @@
 # Llama
 
+<details>
+<summary>
+<h3>Содержание</h3>
+</summary>
+    
+- [Введение](#введение)
+- [С чего начать?](#С-чего-начать?)
+    - [Шаг 0](#Шаг-0.-Требования-и-напутствия.)
+</details>
+
+
+
 <h1 align="center">Развертывание LLAMA в Grafana с помощью Terrafrom и Ansible</a> 
 <img src="https://github.com/blackcater/blackcater/raw/main/images/Hi.gif" height="32"/></h1>
+
+### Введение
 
 LLAMA (Loss and Latency MAtrix) - это библиотека для тестирования и измерения сетевых потерь и задержек между распределенными конечными точками. Ссылка на [проект](https://github.com/dropbox/llama).
 
@@ -32,7 +46,8 @@ erDiagram
     }
 ```
 
-### С чего начать?
+# С чего начать?
+
 ## Шаг 0. Требования и напутствия.
 Данный проект предзначаен **только** для серверов с дистрибутивом **ubuntu**. Доступ к grafana, influxdb и сервисам будет иметь **только root** пользователь.
 Запуск проекта происходил с `Ubuntu 20.04 LTS 64-bit`, на других Ubuntu дистрибутивах не проверялось.
@@ -104,7 +119,7 @@ ansible-playbook MEGALLAMA.yml
 
 В самом конце будет пункт про пароли.
 проверенно на
-## Шаг1. Terraform и Openstack.
+## Шаг 1. Terraform и Openstack.
 
 Первым делом необходима авторизация с Openstack API. Это можно сделать по нашей документации: [Создание сервисного пользователя](https://docs.selectel.ru/cloud/servers/tools/openstack/#создать-сервисного-пользователя) и [Настройка авторизации](https://docs.selectel.ru/cloud/servers/tools/openstack/#настроить-авторизацию).
 
