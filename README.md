@@ -61,15 +61,41 @@ data "openstack_images_image_v2" "ubuntu_image" {
 
 </details>
 
+<details>
+<summary>Запуск для ленивых и кто не хочет разбираться</summary>
+    
+1. Убедились, что наш сервер на дистрибутиве ubuntu и выполняем:
+```bash
+    apt update && apt install git -y
+    git clone https://github.com/LoMkkka/Llama.git
+
+```
+2. Мы авторизировались в openstack api через `source rc.sh`, который был скачан из Шага 1.
+3. Запускаем скрипт `prepare.sh`
+```bash
+    ~/Llama/prepare.sh
+```    
+4. Создаем серверы
+    ```bash
+    cd ~/Llama/terraform
+    terraform init
+    terraform apply -auto-approve
+    ```
+5. Запсукаем скрипт `replacer`
+```bash
+    ~/Llama/replacer.sh
+```    
+</details>
+
 В самом конце будет пункт про пароли.
 проверенно на
 ## Шаг1. Terraform и Openstack.
 
 Первым делом необходима авторизация с Openstack API. Это можно сделать по нашей документации: [Создание сервисного пользователя](https://docs.selectel.ru/cloud/servers/tools/openstack/#создать-сервисного-пользователя) и [Настройка авторизации](https://docs.selectel.ru/cloud/servers/tools/openstack/#настроить-авторизацию).
 
-Если вы работаете с нового сервера, то можно запустить скрипт `setup1.sh`, который развернет необходимую среду для начала работ.
+Если вы работаете с нового сервера, то можно запустить скрипт `prepare.sh`, который развернет необходимую среду для начала работ.
 <details>
-<summary>Что делает `setup1.sh`?</summary>
+<summary>Что делает `prepare.sh`?</summary>
 asdads
 </details>
 Убедиться, что вы авторизовались в Openstack API через скачанный файл `source rc.sh`.
