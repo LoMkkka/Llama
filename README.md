@@ -159,7 +159,7 @@ git clone https://github.com/LoMkkka/Llama.git
 ```bash
 ~/Llama/prepare.sh
 ```    
-3. Мы авторизировались в openstack api через `source rc.sh`, который был скачан из Шага 1.
+3. Мы авторизировались в openstack api через `source rc.sh`, который был скачан из [Шаг 1. Terraform и Openstack](#шаг-1-terraform-и-openstack).
 
 4. Создаем серверы.
 ```bash
