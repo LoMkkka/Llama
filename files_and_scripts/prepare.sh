@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Установка openstack CLI
-sudo apt install python3-openstackclient
+sudo apt install python3-openstackclient -y
 # Установка Ansible
 sudo apt install ansible -y
 # Установка Terraform
