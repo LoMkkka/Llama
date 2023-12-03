@@ -1,9 +1,10 @@
 #!/bin/bash
 temp_file=$(mktemp)
 # Утилита формирует список групп с ip в inventory в указанный файл.
-terraform-inventory -inventory ./terraform > ~/Llama/ansible/hosts.ini
+cd ~/Llama/terraform
+terraform-inventory -inventory /root/Llama/terraform > /root/Llama/ansible/hosts.ini
 # После чего создаем jump  
-jump_ip=`sed -n '/\[module_master_fip_tf\]/,+1p'  ./ansible/hosts.ini | sed -n '2p'`
+jump_ip=`sed -n '/\[module_master_fip_tf\]/,+1p'  /root/Llama/ansible/hosts.ini | sed -n '2p'`
 echo "Host 10.10.1.*
     StrictHostKeyChecking no
     User root
@@ -11,9 +12,9 @@ echo "Host 10.10.1.*
 
 # Здесь идет настройка для llama.config collector
 # Controls how ports are setup for sending probes
-path_hosts="./ansible/hosts.ini"
-file1="files/abvg.txt" # шаблон
-file2="files/complex_example.yaml" # шаблон config для collector
+path_hosts="/root/Llama/ansible/hosts.ini"
+file1="/root/Llama/files/abvg.txt" # шаблон
+file2="/root/Llama/files/complex_example.yaml" # шаблон config для collector
 word_to_replace="put_ip_master"
 word_to_input=`sed -n '/\[module_master_server_tf\]/,+1p'  $path_hosts | sed -n '2p'`
 # Проверяем, существует ли файл
@@ -25,7 +26,7 @@ fi
 sed  "s/\b$word_to_replace\b/$word_to_input/g" "$file1" > "$file2" 
 
 #Если при пересборки terraform выдаст тот же ip для master, то не будет головной боли с вручным вводом для удаления из known_hosts
-headache=`sed -n '/\[type_openstack_compute_floatingip_associate_v2\]/,+1p' ./ansible/hosts.ini | sed -n '2p'`
+headache=`sed -n '/\[type_openstack_compute_floatingip_associate_v2\]/,+1p' /root/ansible/hosts.ini | sed -n '2p'`
 ssh-keygen -f "/root/.ssh/known_hosts" -R "$headache"
 
 ### Адрес ноды и ее порт в который нужно пинговать
@@ -57,4 +58,4 @@ awk -v line=63 -v text="$insert_text" '{
     print text
   }
   print $0
-}' "$file2" > "./ansible/docker-llama/collector/files/complex_example.yaml"
+}' "$file2" > "/root/Llama/ansible/docker-llama/collector/files/complex_example.yaml"
