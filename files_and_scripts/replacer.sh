@@ -2,9 +2,9 @@
 temp_file=$(mktemp)
 
 # Утилита формирует список групп с ip в inventory в указанный файл.
-terraform-inventory -inventory ./terraform > ~/Llama/ansible/hosts.ini
+terraform-inventory -inventory ../terraform > ~/Llama/ansible/hosts.ini
 # После чего создаем jump  
-jump_ip=`sed -n '/\[module_master_fip_tf\]/,+1p'  ansible/hosts.ini | sed -n '2p'`
+jump_ip=`sed -n '/\[module_master_fip_tf\]/,+1p'  ../ansible/hosts.ini | sed -n '2p'`
 echo "Host 10.10.1.*
     StrictHostKeyChecking no
     User root
@@ -13,7 +13,7 @@ echo "Host 10.10.1.*
 
 # Здесь идет настройка для llama.config collector
 # Controls how ports are setup for sending probes
-path_hosts="ansible/hosts.ini"
+path_hosts="../ansible/hosts.ini"
 file1="abvg.txt" # шаблон
 file2="complex_example.yaml"
 word_to_replace="put_ip_master"
@@ -56,4 +56,4 @@ awk -v line=63 -v text="$insert_text" '{
     print text
   }
   print $0
-}' "$file2" > "/root/Llama/ansible/docker-llama/collector/files/complex_example.yaml"
+}' "$file2" > "~/Llama/ansible/docker-llama/collector/files/complex_example.yaml"
