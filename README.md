@@ -55,14 +55,14 @@ erDiagram
 
 ## Шаг 0. Требования и напутствия
 
-Во избежания вопросов внимательно ознакомтесь с данным разделом.
+Во избежания вопросов внимательно ознакомьтесь с данным разделом.
 
 1. Запуск проекта происходил с `Ubuntu 20.04 LTS 64-bit`, на других Ubuntu дистрибутивах не проверялось. 
          
    Работа проекта предназначена **только** для серверов с дистрибутивом **ubuntu**.
 
    <details>
-   <summary>Названи образов Ubuntu, с которыми LLAMA будет работать (проверено)</summary>
+   <summary>Название образов Ubuntu, с которыми LLAMA будет работать (проверено)</summary>
 
    - Ubuntu 16.04 LTS 64-bit 
    - Ubuntu 18.04 LTS 64-bit 
@@ -79,7 +79,7 @@ erDiagram
 
 Также в проекте используется очень удобная утилита [`terraform-inventory`](https://github.com/adammck/terraform-inventory), которая формирует файл со списком хостов и групп (inventory).
 
-4. Обновите репазитории локального сервера, установите `git` и скачайте проект:
+4. Обновите репозитории локального сервера, установите `git` и скачайте проект:
 ```bash
 apt update && apt install git -y
 ```
@@ -209,28 +209,41 @@ git clone https://github.com/LoMkkka/Llama.git
 ----
 
 Далее создаем серверы:
-- Инициализация рабочего каталога `terraform init` (необходимые terraform-providers уже имеются в данном репозитории)
-- Посмотреть какие серверы и параметры будут созданы `terraform plan` 
-- Начать создания серверов `terraform apply`
+- Инициализация рабочего каталога (необходимые terraform-providers уже имеются в данном репозитории)
+   ```bash
+   terraform init
+   ```  
+- Посмотреть какие серверы и параметры будут созданы
+   ```bash
+   terraform plan
+   ```  
+- Начать создания серверов
+   ```bash
+   terraform apply
+   ```  
+   Ожидаем такой вывод:
    ```HCL
-   Destroy complete! Resources: 19 destroyed.
+   Apply complete! Resources: 19 added, 0 changed, 0 destroyed.
    ```
-Если нужно удалить все серверы, то используйте с начала `terraform refresh` и `terraform destroy` и получаем такой вывод:
+- Если нужно **удалить** все серверы, то используйте с начала команду `terraform refresh`, и только затем `terraform destroy`
+   ```bash
+   terraform refresh && terraform destroy
+   ``` 
+   Получаем такой вывод:
    ```HCL
    Destroy complete! Resources: 19 destroyed.
    ```
 ## Шаг 2. Связность серверов
 После того как серверы созданы, необходимо убедиться, что они имеют связность между собой.
-- Запускаем скрипт `setup2.sh`, который заполняет нужные файлы данными для развертывания проекта.
+- Запускаем скрипт `replacer.sh`, который заполняет файлы данными, полученными от созданных серверов. Указываем количество нод, которое было создано (master нода не считается)
 
-<details>
-<summary>Что делает `setup2.sh`?</summary>
-asdads
-</details>
+- **Дважды** запускаем playbook `ansible-playbook test.yml` в папке `~/Llama/ansible/`, который проверит связность между мастером и нодами
 
-- **Дважды** запускаем `ansible-playbook test.yml` в папке `ansible`, который проверит связность между мастером и нодами.
+```bash
+ansible-playbook test.yml
+```
 
-Должны увидеть такую картину:
+Должны увидеть следующую картину:
 
 ``` yaml
 PLAY RECAP **********************
@@ -240,11 +253,22 @@ PLAY RECAP **********************
 10.10.1.199                : ok=3     
 45.145.65.25               : ok=3      
 ```
+Что свидетельствует об успешной связности серверов.
 
 ## Шаг 3. Запуск LLama
 
-После получения положительного результата связности, запускаем playbook `ansible-playbook LLAMA.yml` и ждем...
-После успешного развертывания заходим по ip мастера с портом `3000`. Данные для входа выставлены по дефолту `admin/admin`.
+После получения положительного результата связности, запускаем playbook `ansible-playbook LLAMA.yml` в той же папке.
+
+```bash
+ansible-playbook LLAMA.yml
+```
+После развертывания мы получим сообщение о готовности проекта вместе со ссылкой:
+```yaml
+ok: [10.10.1.86] => {
+    "msg": "Ура!!! Проверяй работоспособность MEGALLAMA по ссылке http://5.159.103.10:3000 "
+}
+```
+Переходим по ссылке и вводим данные для входа, которые выставлены по стандарту `admin/admin`. Рекомендуется сразу сменить пароль на более надежный.
 Далее заходим в Dashboards/llama и видим следующую картину (для примера некоторые ноды были отключены):
 
 ![image](https://github.com/LoMkkka/Llama/assets/76530062/7de31c9d-3ec0-431c-8506-a9aacb5e8c1b)
@@ -278,7 +302,7 @@ git clone https://github.com/LoMkkka/Llama.git
 ```bash
 ~/Llama/prepare.sh
 ```    
-3. Мы авторизовались в openstack api через `source rc.sh`, который был скачан из [Шаг 1. Terraform и Openstack](#шаг-1-terraform-и-openstack).
+3. Мы убедились, что авторизовались в openstack api через `source rc.sh`, который был скачан из [Шаг 1. Terraform и Openstack](#шаг-1-terraform-и-openstack).
 
 4. Создаем серверы.
 ```bash
@@ -286,7 +310,7 @@ cd ~/Llama/terraform
 terraform init
 terraform apply -auto-approve
 ```
-5. После того как серверы создались запуcкаем скрипт `replacer.sh`.
+5. После того как серверы создались запускаем скрипт `replacer.sh`.
 ```bash
 ~/Llama/replacer.sh
 ```
@@ -301,10 +325,17 @@ cd ~/Llama/ansible
 ansible-playbook MEGALLAMA.yml
 ```
 8. В конце будет вывод ссылки по которой нужно перейти. Пароль от grafana стандартный admin/admin. В `dashboards` находим llama, переходим по ней и радуемся.
-![image](https://github.com/LoMkkka/Llama/assets/76530062/ae406dae-e5f3-468c-87e0-25f2ea97fd36)
+   
+      ![image](https://github.com/LoMkkka/Llama/assets/76530062/ae406dae-e5f3-468c-87e0-25f2ea97fd36)
 
 </details>
 
 
 # P.S.
-Файл `alert.yaml` за паролен, т.к. содержит токены в приватный канал телеграмма. Пример шаблона для алертов будет указан по пути `~/Llama/ansible/docker-grafana/grafana/files/provisioning/alert.yaml`
+Файл `alert.yaml` за паролен, т.к. содержит токены в приватный канал телеграмма. Пример шаблона для алертов будет указан по пути `~/Llama/ansible/docker-grafana/grafana/files/provisioning/alert1.yaml`. 
+
+Если вы настроили свой алерт, то обязательно откомментируйте следующую строку в файле `~/Llama/ansible/docker-grafana/grafana/files/Dockerfile`:
+```yaml
+# Если у вас есть готовый шаблон аларом, то откомментируйте строку ниже 
+COPY provisioning/alert.yaml     /etc/grafana/provisioning/alerting # не забыть поменять наименования алерт файла
+```
