@@ -16,7 +16,6 @@ file1="files/abvg.txt" # шаблон
 file2="files/complex_example.yaml" # шаблон config для collector
 word_to_replace="put_ip_master"
 word_to_input=`sed -n '/\[module_master_server_tf\]/,+1p'  $path_hosts | sed -n '2p'`
-echo $word_to_input
 # Проверяем, существует ли файл
 if [ ! -e "$file1" ]; then
     echo "Файл $file1 не найден."
@@ -26,7 +25,8 @@ fi
 sed  "s/\b$word_to_replace\b/$word_to_input/g" "$file1" > "$file2" 
 
 #Если при пересборки terraform выдаст тот же ip для master, то не будет головной боли с вручным вводом для удаления из known_hosts
-ssh-keygen -f "/root/.ssh/known_hosts" -R "$word_to_input"
+headache=`sed -n '/\[type_openstack_compute_floatingip_associate_v2\]/,+1p' ./ansible/hosts.ini | sed -n '2p'`
+ssh-keygen -f "/root/.ssh/known_hosts" -R "$headache"
 
 ### Адрес ноды и ее порт в который нужно пинговать
 echo Введите количество нод
