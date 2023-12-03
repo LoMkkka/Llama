@@ -10,7 +10,7 @@
     - [Шаг 0. Требования и напутствия](#шаг-0-требования-и-напутствия)
     - [Шаг 1. Terraform и Openstack](#шаг-1-terraform-и-openstack)
     - [Шаг 2. Связность серверов](#шаг-2-связность-серверов)
-    - [Шаг 3. Запуск MegaLLama](#шаг-3-запуск-megallama)
+    - [Шаг 3. Запуск LLama](#шаг-3-запуск-llama)
 - [Быстрый запуск](#быстрый-запуск)
 - [P.S.](#ps)
 </details>
@@ -55,50 +55,64 @@ erDiagram
 
 ## Шаг 0. Требования и напутствия
 
-Во избежания вопросов внимательно ознакомьтесь с данными пунктами.
+Во избежания вопросов внимательно ознакомтесь с данным разделом.
 
-1. Данный проект предназначен **только** для серверов с дистрибутивом **ubuntu**.
+1. Запуск проекта происходил с `Ubuntu 20.04 LTS 64-bit`, на других Ubuntu дистрибутивах не проверялось. 
+         
+   Работа проекта предназначена **только** для серверов с дистрибутивом **ubuntu**.
 
-<details>
-<summary>Список проверенных дистрибутивов</summary>
+   <details>
+   <summary>Названи образов Ubuntu, с которыми LLAMA будет работать</summary>
 
-- Ubuntu 16.04 LTS 64-bit 
-- Ubuntu 18.04 LTS 64-bit 
-- Ubuntu 20.04 LTS 64-bit
-- Ubuntu 22.04 LTS 64-bit 
-</details>
+   - Ubuntu 16.04 LTS 64-bit 
+   - Ubuntu 18.04 LTS 64-bit 
+   - Ubuntu 20.04 LTS 64-bit 
+   - Ubuntu 22.04 LTS 64-bit 
+   </details>
 
-2. Доступ к использованию docker, его образов и контейнеров будет иметь **только root** пользователь. Если вы хотите, чтобы другие пользователи могли пользоваться, а следовательно, и видеть образы и контейнеры, то добавте пользователя в группу `sudo usermod -aG docker <username>`
+2. Доступ к использованию  docker, его образов и контейнеров будет иметь **только root** пользователь. Если вы хотите, чтобы другие пользователи могли пользоваться, а следовательно, видеть образы и контейнеры, то добавьте пользователей в группу `sudo usermod -aG docker <username>`.
 
-3. Запуск проекта происходил с `Ubuntu 20.04 LTS 64-bit`, на других Ubuntu дистрибутивах не проверялось.
-Используемые версии в docker образах:
-- `Influxdb v1.8.10` (версию v2 не ставить, точно не будет работать)
+3. Используемые версии в docker образах:
+- `Influxdb v1.8.10` (версию v2 не ставить, точно не будет работать. Лучше оставить как есть. [Официальный контейнер](https://github.com/influxdata/influxdata-docker/tree/577416b29d72aa5b7199c4c67702448152219d78/influxdb/1.8/alpine))
 - `grafana/grafana:latest` (если после обновления образа перестало работать, то можно вернуться к версии grafana_10.2.1)
-- `Модули llama` (Официальный хаб [проекта](https://github.com/dropbox/llama).)
----------------
-Скачиваем проект `git clone https://github.com/LoMkkka/Llama.git`
-выпадающее меню пароли
-Все скачанные программы с официальных репозиторий
-<details>
-<summary>Корректные названия образов Ubuntu и как должен выглядеть кусок кода</summary>
+- `Модули LLAMA` (официальный хаб [проекта](https://github.com/dropbox/llama))
 
-``` tf
-#Поиск ID образа (из которого будет создан сервер) по его имени
-data "openstack_images_image_v2" "ubuntu_image" {
-  most_recent = true
-  visibility  = "public"
-  name        = "Ubuntu 20.04 LTS 64-bit" # сюда вставляем название нужного нам образа (не забываем это делать в обоих файлах) 
-}
+Также в проекте используется очень удобная утилита [`terraform-inventory`](https://github.com/adammck/terraform-inventory), которая формирует файл со списком хостов и групп (inventory).
+
+4. Обновите репазитории локального сервера, установите `git` и скачайте проект:
+```bash
+apt update && apt install git -y
+```
+```bash
+git clone https://github.com/LoMkkka/Llama.git
 ```
 
-- Ubuntu 16.04 LTS 64-bit 
-- Ubuntu 18.04 LTS 64-bit 
-- Ubuntu 20.04 LTS 64-bit
-- Ubuntu 22.04 LTS 64-bit 
-    
+## Security
 
-</details>
+В проекте существуют чувствительные данные на которые необходимо обратить внимание. В файлах `~/Llama/ansible/docker-influxdb/influxdb/defaults/main.yml` и `~/Llama/ansible/docker-llama/scraper/defaults/main.yml` рекомендуется менять только строки связанные с user и password.
+```yaml
+#influxdb/defaults/main.yml
+influxdb_http_ip: localhost
+influxdb_http_port: 5086
+influxdb_query_logging: false
+influxdb_user_username: "test12" #Должны совпадать с llama_influxdb_pass
+influxdb_user_password: "privet" #Должны совпадать с llama_influxdb_user
+```
+*Если нужна более гибкая настройка, то следует более подробно ознакомиться с каждой переменной в [официальном проекте LLAMA](https://github.com/dropbox/llama)*
+```yaml
+#scraper/defaults/main.yml
+llama_collector_hosts: localhost 
+llama_collector_port: 14000
+llama_influxdb_host: localhost 
+llama_influxdb_name: llama
+llama_influxdb_pass: privet
+llama_influxdb_port: 5086
+llama_influxdb_user: test12
+llama_interval: 10
+```
+Напоминаю, что другие пользователи на развернутых серверах будут видеть активные порты, но не какими службами они запущены.
 
+Все скачанные программы с официальных репозиторий
 
 В самом конце будет пункт про пароли.
 проверенно на
@@ -106,13 +120,36 @@ data "openstack_images_image_v2" "ubuntu_image" {
 
 Первым делом необходима авторизация с Openstack API. Это можно сделать по нашей документации: [Создание сервисного пользователя](https://docs.selectel.ru/cloud/servers/tools/openstack/#создать-сервисного-пользователя) и [Настройка авторизации](https://docs.selectel.ru/cloud/servers/tools/openstack/#настроить-авторизацию).
 
+
+### Написать про гибкую настройку openstack cli
+
 Если вы работаете с нового сервера, то можно запустить скрипт `prepare.sh`, который развернет необходимую среду для начала работ.
 <details>
 <summary>Что делает `prepare.sh`?</summary>
 asdads
 </details>
 Убедиться, что вы авторизовались в Openstack API через скачанный файл `source rc.sh`.
+   <details>
+   <summary>Корректные названия образов Ubuntu и как должен выглядеть кусок кода</summary>
 
+   Имя образов подставляются в файлах `~/Llama/terraform/master/vars.tf` и `~/Llama/terraform/nodes/main.tf`
+   
+   ``` tf
+   #Поиск ID образа (из которого будет создан сервер) по его имени
+   data "openstack_images_image_v2" "ubuntu_image" {
+     most_recent = true
+     visibility  = "public"
+     name        = "Ubuntu 20.04 LTS 64-bit" # сюда вставляем название нужного нам образа (не забываем это делать в обоих файлах) 
+   }
+   ```
+
+   - Ubuntu 16.04 LTS 64-bit (LLAMA работает с этим образом)
+   - Ubuntu 18.04 LTS 64-bit (LLAMA работает с этим образом)
+   - Ubuntu 20.04 LTS 64-bit (LLAMA работает с этим образом)
+   - Ubuntu 22.04 LTS 64-bit (LLAMA работает с этим образом)
+    
+
+   </details>
 Далее создаем серверы:
 - Инициализация рабочего каталога `terraform init` (необходимые terraform-providers уже имеются в данном репозитории)
 - Посмотреть какие серверы и параметры будут созданы `terraform plan` 
@@ -140,9 +177,9 @@ PLAY RECAP **********************
 45.145.65.25               : ok=3      
 ```
 
-## Шаг 3. Запуск MegaLLama
+## Шаг 3. Запуск LLama
 
-После получения положительного результата связности, запускаем playbook `ansible-playbook MEGALLAMA.yml` и ждем...
+После получения положительного результата связности, запускаем playbook `ansible-playbook LLAMA.yml` и ждем...
 После успешного развертывания заходим по ip мастера с портом `3000`. Данные для входа выставлены по дефолту `admin/admin`.
 Далее заходим в Dashboards/llama и видим следующую картину (для примера некоторые ноды были отключены):
 
