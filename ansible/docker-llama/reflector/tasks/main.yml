@@ -1,40 +1,48 @@
-- name: Копировать Dockerfile
+- name:  =========================== Копируем Dockerfile ===========================
   template:
     src: Dockerfile.yaml.j2 #
     dest: /tmp/Dockerfile
     mode: 0700
 
-- name: Копировать reflector
+- name: =========================== Копируем reflector ===========================
   copy:
     src: reflector #
     dest: /tmp/reflector
     mode: 0700
 
-- name: Остановить Docker-контейнер (если существует)
+- name: =========================== Остановить Docker-контейнер (если существует) ===========================
   shell:
     cmd: docker stop reflector && docker rm reflector
   ignore_errors: yes
+  register: docker_container_result
 
-- name: Удалить старый Docker-образ (если существует)
+- name: =========================== Удалить старый Docker-образ (если существует) ===========================
   shell:
     cmd: docker rmi reflector_image
   ignore_errors: yes
+  register: docker_image_result
 
-- name: Собрать Docker-образ
+- name: =========================== Собираем Docker-образ ===========================
   shell:
     cmd: docker build -t reflector_image /tmp
   args:
     chdir: /tmp
 
-- name: Run Docker container
+- name: =========================== Запускаем Docker container ===========================
   docker_container:
     name: reflector
     image: reflector_image
     state: started
     network_mode: host
     restart_policy: always
+  
 
-# apt install python-pip
-# pip install docker
-# sudo apt-get install python3 python3-pip
-# sudo pip3 install docker
+- name: =========================== Удалять нечего ===========================
+  debug:
+    msg: "Не пугайтесь ошибок выше.
+      Если вы видите это сообщение, то скорее всего docker не удалил образ и/или контейнер, 
+      что не является в данном playbook ошибкой. Только если в самой ошибке не указано иначе."
+
+  when:
+      - docker_container_result.failed
+      - docker_image_result.failed

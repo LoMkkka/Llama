@@ -1,11 +1,12 @@
 ---
-- name: My first ping
+- name: ======================= Проверка связности и ОС ========================
   hosts: all
   connection: ssh
+  gather_facts: yes
   tasks:
-    - name: Ping my hosts
-      ansible.builtin.ping:
+    - name: =========================== Пингуем хосты ===========================
+      ping:
       when: ansible_os_family == "Debian"
     - name: Print message
-      ansible.builtin.debug:
-        msg: Hello world
+      debug:
+        msg: Да, это Ubuntu сервер

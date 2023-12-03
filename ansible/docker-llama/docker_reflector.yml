@@ -1,5 +1,5 @@
 ---
-- name: ===========================  Installing docker-llama on Nodes ===========================
+- name: =======================  Установка docker-reflector на Nodes =======================
   hosts: module_nodes_server_tf
   become: yes
   gather_facts: no

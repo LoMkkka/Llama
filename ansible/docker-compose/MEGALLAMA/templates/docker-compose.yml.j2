@@ -8,9 +8,6 @@ services:
       dockerfile: Dockerfile
     container_name: collector
     network_mode: "host"
-    ports:
-      - "{{ llama_dst_port }}:{{ llama_dst_port }}/tcp"
-      - "{{ llama_dst_port }}:{{ llama_dst_port }}/udp"
     restart: always
 
   scraper:
@@ -20,11 +17,6 @@ services:
       dockerfile: Dockerfile
     container_name: scraper
     network_mode: "host"
-    ports:
-      - "{{ llama_collector_port }}:{{ llama_collector_port }}/tcp"
-      - "{{ llama_collector_port }}:{{ llama_collector_port }}/udp"
-      - "{{ llama_influxdb_port }}:{{ llama_influxdb_port }}/tcp"
-      - "{{ llama_influxdb_port }}:{{ llama_influxdb_port }}/udp"
     restart: always
 
   influxdb:
@@ -34,9 +26,6 @@ services:
       dockerfile: Dockerfile
     container_name: influxdb
     network_mode: "host"
-    ports:
-      - "{{ influxdb_http_port }}:{{ influxdb_http_port }}/tcp"
-      - "{{ influxdb_http_port }}:{{ influxdb_http_port }}/udp"
     restart: always
 
   grafana:
@@ -46,7 +35,4 @@ services:
       dockerfile: Dockerfile
     container_name: grafana
     network_mode: "host"
-    ports:
-      - "3000:3000/tcp"
-      - "3000:3000/udp"
     restart: always

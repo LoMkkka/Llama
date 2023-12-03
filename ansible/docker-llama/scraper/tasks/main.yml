@@ -1,41 +1,39 @@
-- name: Создать папку
+- name: =========================== Создаем папку в /tmp/ ===========================
   file:
     path: /tmp/scraper
     state: directory
+    mode: 0700
     
-- name: Копировать Dockerfile
+- name: =========================== Копируем Dockerfile ===========================
   template:
-    src: Dockerfile.yaml.j2 #
+    src: Dockerfile.yaml.j2 
     dest: /tmp/scraper/Dockerfile
     mode: 0700
 
-- name: Копировать scraper
+- name: =========================== Копируем scraper ===========================
   copy:
-    src: scraper #
+    src: scraper 
     dest: /tmp/scraper/scraper
     mode: 0700
 
-- name: Остановить Docker-контейнер (если существует)
+- name: =========================== Остановить Docker-контейнер (если существует) ===========================
   shell:
     cmd: docker stop scraper && docker rm scraper
   ignore_errors: yes
+  register: docker_container_result
 
-- name: Удалить старый Docker-образ (если существует)
+- name: =========================== Удалить старый Docker-образ (если существует) ===========================
   shell:
     cmd: docker rmi scraper_image
   ignore_errors: yes
+  register: docker_image_result
 
-# - name: Собрать Docker-образ
-#   shell:
-#     cmd: docker build -t scraper_image /tmp/scraper
-#   args:
-#     chdir: /tmp/scraper
+- name: =========================== Удалять нечего ===========================
+  debug:
+    msg: "Не пугайтесь ошибок выше.
+      Если вы видите это сообщение, то скорее всего docker не удалил образ и/или контейнер, 
+      что не является в данном playbook ошибкой. Только если в самой ошибке не указано иначе."
 
-# - name: Run Docker container
-#   docker_container:
-#     name: scraper
-#     image: scraper_image
-#     detach: yes
-#     network_mode: host
-#     networks_cli_compatible: yes
-#     state: started
+  when:
+      - docker_container_result.failed
+      - docker_image_result.failed

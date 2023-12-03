@@ -1,0 +1,21 @@
+- name: ======================== Ребут Master и Nodes ========================
+  hosts: type_openstack_compute_instance_v2
+  become: yes
+  gather_facts: no
+  ignore_errors: true
+  tasks:
+    - name: ======================== Перезагрузка хостов ========================
+      reboot:
+        reboot_timeout: 300
+        test_command: whoami
+      async: 0
+      poll: 0
+      ignore_errors: yes
+
+    - name: Выполнение команды whoami после перезагрузки
+      command: echo "Ура!!! Проверяй работоспособность MEGALLAMA"
+      register: whoami_result
+
+    - name: Отладочное сообщение с результатом whoami
+      debug:
+        var: whoami_result.stdout

@@ -1,51 +1,50 @@
-- name: Создать папку
+- name: =========================== Создаем папку в /tmp/ ===========================
   file:
     path: /tmp/influxdb
     state: directory
 
-- name: Копировать ###
+- name: =========================== Копируем скрипт №1 ===========================
   copy:
-    src: entrypoint.sh #
+    src: entrypoint.sh 
     dest: /tmp/influxdb/entrypoint.sh
     mode: 0700
 
-- name: Копировать ###
+- name: =========================== Копируем скрипт №2 ===========================
   template:
-    src: init-influxdb.sh.j2 #
+    src: init-influxdb.sh.j2 
     dest: /tmp/influxdb/init-influxdb.sh.j2
     mode: 0700
 
-- name: Копировать Dockerfile ########
+- name: =========================== Копируем Dockerfile ===========================
   copy:
     src: Dockerfile #
     dest: /tmp/influxdb/Dockerfile
     mode: 0700
 
-- name: Копировать influxdb.conf ########
+- name: =========================== Копируем influxdb.conf ===========================
   copy:
     src: influxdb.conf #
     dest: /tmp/influxdb/influxdb.conf
     mode: 0700
 
-- name: Остановить Docker-контейнер (если существует)
+- name: =========================== Остановить Docker-контейнер (если существует) ===========================
   shell:
     cmd: docker stop influxdb && docker rm influxdb
   ignore_errors: yes
+  register: docker_container_result
 
-- name: Удалить старый Docker-образ (если существует)
+- name: =========================== Удалить старый Docker-образ (если существует) ===========================
   shell:
     cmd: docker rmi influxdb_image
   ignore_errors: yes
+  register: docker_image_result
 
-# - name: Собрать Docker-образ
-#   shell:
-#     cmd: docker build -t influxdb_image /tmp/influxdb
+- name: =========================== Удалять нечего ===========================
+  debug:
+    msg: "Не пугайтесь ошибок выше.
+      Если вы видите это сообщение, то скорее всего docker не удалил образ и/или контейнер, 
+      что не является в данном playbook ошибкой. Только если в самой ошибке не указано иначе."
 
-
-# - name: Run Docker container
-#   docker_container:
-#     name: influxdb
-#     image: influxdb_image
-#     state: started
-#     network_mode: host
-
+  when:
+      - docker_container_result.failed
+      - docker_image_result.failed

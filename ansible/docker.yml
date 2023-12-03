@@ -1,5 +1,5 @@
 ---
-- name: =========================== Installing docker-llama ===========================
+- name: =========================== Установка docker-MEGALLAMA ===========================
   hosts: type_openstack_compute_instance_v2
   become: yes
   gather_facts: no
@@ -7,11 +7,11 @@
   vars:
     ansible_python_interpreter: /usr/bin/python3
   tasks:
-    - name: Обновить список пакетов
+    - name: =========================== Обновление списка пакетов ===========================
       apt:
         update_cache: yes
 
-    - name: Установить пакеты, необходимые для использования Docker
+    - name: ================= Установка пакетов, необходимые для использования Docker ================
       apt:
         name:
           - apt-transport-https
@@ -22,17 +22,17 @@
           - python3-pip
         state: present
 
-    - name: Добавить официальный ключ Docker GPG
+    - name: ======================== Добавление официальных ключей Docker GPG ========================
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
         state: present
 
-    - name: Добавить официальный репозиторий Docker
+    - name: ======================== Добавление официальных репозиторий Docker ========================
       apt_repository:
         repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
         state: present
 
-    - name: Установить Docker
+    - name: ======================== Установка Docker и Docker-compose ========================
       apt:
         name: 
         - docker-ce 
@@ -41,12 +41,13 @@
         - docker-compose
         state: present
 
-    - name: Install Docker Module for Python
+    - name: ======================== Установка модуля Docker для Python ========================
       pip:
         name: docker
-
 
 - import_playbook: docker-llama/docker_llama.yml
 - import_playbook: docker-influxdb/docker_influxdb.yml
 - import_playbook: docker-grafana/docker_grafana.yml
 - import_playbook: docker-compose/docker_MEGALLAMA.yml
+- import_playbook: reboot.yml
+

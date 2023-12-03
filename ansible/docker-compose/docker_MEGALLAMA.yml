@@ -1,5 +1,5 @@
 ---
-- name: ===========================  Installing docker-MEGALLAMA on Master ===========================
+- name: ===========================  Установка docker-MEGALLAMA на Master ===========================
   hosts: module_master_fip_tf
   become: yes
   gather_facts: yes

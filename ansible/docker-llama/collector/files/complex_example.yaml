@@ -16,7 +16,7 @@ api:
 # The port number used is selected by the OS at runtime.
 ports:
   default:
-    ip: 10.10.1.21
+    ip: 10.10.1.236
     port: 0
     tos: 0
     timeout: 1000
@@ -61,19 +61,19 @@ tests:
 targets:
   default:
 
-    - ip: 10.10.1.66
+    - ip: 10.10.1.221
       port: 14000
       tags:
         src_hostname: Master-node
         dst_hostname: node-1
         
-    - ip: 10.10.1.193
+    - ip: 10.10.1.202
       port: 14000
       tags:
         src_hostname: Master-node
         dst_hostname: node-2
         
-    - ip: 10.10.1.231
+    - ip: 10.10.1.23
       port: 14000
       tags:
         src_hostname: Master-node

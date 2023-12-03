@@ -1,5 +1,5 @@
 ---
-- name: ===========================  Installing docker-grafana on Master ===========================
+- name: ===========================  Установка docker-grafana на Master ===========================
   hosts: module_master_fip_tf
   become: yes
   gather_facts: no
