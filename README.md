@@ -62,7 +62,7 @@ erDiagram
    Работа проекта предназначена **только** для серверов с дистрибутивом **ubuntu**.
 
    <details>
-   <summary>Названи образов Ubuntu, с которыми LLAMA будет работать</summary>
+   <summary>Названи образов Ubuntu, с которыми LLAMA будет работать (проверено)</summary>
 
    - Ubuntu 16.04 LTS 64-bit 
    - Ubuntu 18.04 LTS 64-bit 
@@ -87,52 +87,50 @@ apt update && apt install git -y
 git clone https://github.com/LoMkkka/Llama.git
 ```
 
-## Security
+5. Безопасность
 
-В проекте существуют чувствительные данные на которые необходимо обратить внимание. В файлах `~/Llama/ansible/docker-influxdb/influxdb/defaults/main.yml` и `~/Llama/ansible/docker-llama/scraper/defaults/main.yml` рекомендуется менять только строки связанные с user и password.
-```yaml
-#influxdb/defaults/main.yml
-influxdb_http_ip: localhost
-influxdb_http_port: 5086
-influxdb_query_logging: false
-influxdb_user_username: "test12" #Должны совпадать с llama_influxdb_pass
-influxdb_user_password: "privet" #Должны совпадать с llama_influxdb_user
-```
-*Если нужна более гибкая настройка, то следует более подробно ознакомиться с каждой переменной в [официальном проекте LLAMA](https://github.com/dropbox/llama)*
-```yaml
-#scraper/defaults/main.yml
-llama_collector_hosts: localhost 
-llama_collector_port: 14000
-llama_influxdb_host: localhost 
-llama_influxdb_name: llama
-llama_influxdb_pass: privet
-llama_influxdb_port: 5086
-llama_influxdb_user: test12
-llama_interval: 10
-```
-Напоминаю, что другие пользователи на развернутых серверах будут видеть активные порты, но не какими службами они запущены.
+   В проекте существуют чувствительные данные на которые необходимо обратить внимание. В файлах `~/Llama/ansible/docker-influxdb/influxdb/defaults main. yml` и `~/Llama/ansible/docker-llama/scraper/defaults/main.yml` рекомендуется менять только строки связанные с user и password.
+   ```yaml
+   #influxdb/defaults/main.yml
+   influxdb_http_ip: localhost
+   influxdb_http_port: 5086
+   influxdb_query_logging: false
+   influxdb_user_username: "test12" #Должны совпадать с llama_influxdb_pass
+   influxdb_user_password: "privet" #Должны совпадать с llama_influxdb_user
+   ```
+   *Если нужна более гибкая настройка, то следует более подробно ознакомиться с каждой переменной в [официальном проекте LLAMA](https://github.com/dropbox/llama)*
+   ```yaml
+   #scraper/defaults/main.yml
+   llama_collector_hosts: localhost 
+   llama_collector_port: 14000
+   llama_influxdb_host: localhost 
+   llama_influxdb_name: llama
+   llama_influxdb_pass: privet
+   llama_influxdb_port: 5086
+   llama_influxdb_user: test12
+   llama_interval: 10
+   ```
+   Напоминаю, что другие пользователи на развернутых серверах будут видеть активные порты, но не какими службами они запущены.
 
-Все скачанные программы с официальных репозиторий
+   #### ***Все программы скачены с официальных репозиториях.***
 
-В самом конце будет пункт про пароли.
-проверенно на
 ## Шаг 1. Terraform и Openstack
 
-Первым делом необходима авторизация с Openstack API. Это можно сделать по нашей документации: [Создание сервисного пользователя](https://docs.selectel.ru/cloud/servers/tools/openstack/#создать-сервисного-пользователя) и [Настройка авторизации](https://docs.selectel.ru/cloud/servers/tools/openstack/#настроить-авторизацию).
+Первым делом необходима авторизация с Openstack API. Это можно сделать по нашей документации в *базе знаний Selectel*: [Создание сервисного пользователя](https://docs.selectel.ru/cloud/servers/tools/openstack/#создать-сервисного-пользователя) и [Настройка авторизации](https://docs.selectel.ru/cloud/servers/tools/openstack/#настроить-авторизацию).
 
+   Все это ради того, чтобы **terraform** могу управлять ресурсами нашего облака в **openstack**. 
 
-### Написать про гибкую настройку openstack cli
+Если вы работаете с нового сервера, то необходимо запустить скрипт `prepare.sh`, который развернет необходимую среду для начала работ.
 
-Если вы работаете с нового сервера, то можно запустить скрипт `prepare.sh`, который развернет необходимую среду для начала работ.
-<details>
-<summary>Что делает `prepare.sh`?</summary>
-asdads
-</details>
-Убедиться, что вы авторизовались в Openstack API через скачанный файл `source rc.sh`.
+Убедиться, что вы авторизовались в Openstack API через скачанный файл командой `source rc.sh`.
+
+-----
+Если вы хотите другую конфигурацию развертываемых серверов:
+
    <details>
-   <summary>Корректные названия образов Ubuntu и как должен выглядеть кусок кода</summary>
+   <summary>Корректные названия образов Ubuntu и часть кода</summary>
 
-   Имя образов подставляются в файлах `~/Llama/terraform/master/vars.tf` и `~/Llama/terraform/nodes/main.tf`
+   Имя образа подставляется в файлах `~/Llama/terraform/master/vars.tf` и `~/Llama/terraform/nodes/main.tf`
    
    ``` tf
    #Поиск ID образа (из которого будет создан сервер) по его имени
@@ -150,11 +148,77 @@ asdads
     
 
    </details>
+
+   <details>
+   <summary>Место где нужно указывать количество нод </summary>
+
+   В файле `~/Llama/terraform/nodes/vars.tf` указываем желаемое количество нод.
+
+   ```tf
+   variable "int_count" {
+     type    = number
+     default = 3
+   }
+   ```
+   Если число нод большо́е, то рекомендуется использовать следующую команду, которая поможет распараллеливать создание ресурсов и ускорять развертывание:
+   ```bash
+   terraform apply -parallelism=n 
+   ```
+   Terraform будет выполнять операции с ресурсами параллельно, используя до n потоков. Применять аккуратно, т.к. это зависит от ресурсов локальной машины.
+   </details>
+
+   <details>
+   <summary>Если вы хотите просмотреть готовые инстант (flavor) или список развернутых серверов. Пример вывод команд openstack: </summary>
+
+   ```bash
+   root@nemaster:~/Llama/files# openstack server list
+   +--------------------------------------+----------+--------+-------------------------------------+-------------------------+------------------------------+
+   | ID                                   | Name     | Status | Networks                            | Image                   | Flavor                       |
+   +--------------------------------------+----------+--------+-------------------------------------+-------------------------+------------------------------+
+   | 05505d44-8461-47f4-a36c-15d0c712863e | node-2   | ACTIVE | network_tf=10.10.1.214              |                         | server-node-pYosQNXmtorqwSOE |
+   | 4abeee69-cae6-4699-8772-9fba8a6bb9ee | node-1   | ACTIVE | network_tf=10.10.1.8                |                         | server-node-pYosQNXmtorqwSOE |
+   | 8c526c73-dd35-4422-b484-c72764e559c6 | node-3   | ACTIVE | network_tf=10.10.1.91               |                         | server-node-pYosQNXmtorqwSOE |
+   | dfa9e6fe-6f7a-4f22-9b2c-9f9ae7fff46a | Master   | ACTIVE | network_tf=10.10.1.226, 31.129.33.9 |                         | server-JhQEj4kx67fFEpQP      |
+   | dc4c8d3c-73a3-49fe-89b6-550f199d6c99 | nemaster | ACTIVE | nat=192.168.0.2, 46.161.52.66       | Ubuntu 20.04 LTS 64-bit | SL1.1-2048                   |
+   +--------------------------------------+----------+--------+-------------------------------------+-------------------------+------------------------------+
+   ```
+
+   ```bash
+   root@nemaster:~/Llama/files# openstack flavor list
+   +--------------------------------------+---------------------------------+--------+------+-----------+-------+-----------+
+   | ID                                   | Name                            |    RAM | Disk | Ephemeral | VCPUs | Is Public |
+   +--------------------------------------+---------------------------------+--------+------+-----------+-------+-----------+
+   | 1                                    | m1.tiny                         |    512 |    0 |         0 |     1 | True      |
+   | 1000                                 | BL1.1-512                       |    512 |    0 |         0 |     1 | True      |
+   | 1001                                 | BL1.1-1024                      |   1024 |    0 |         0 |     1 | True      |
+   | 1002                                 | BL1.1-2048                      |   2048 |    0 |         0 |     1 | True      |
+   | 1003                                 | BL1.2-4096                      |   4096 |    0 |         0 |     2 | True      |
+   | 1306                                 | BL1.6-32768-256                 |  32768 |  256 |         0 |     6 | True      |
+   | 1307                                 | BL1.8-49152-384                 |  49152 |  384 |         0 |     8 | True      |
+   | 1308                                 | BL1.10-65536-512                |  65536 |  512 |         0 |    10 | True      |
+   | 1311                                 | SL1.1-1024-8                    |   1024 |    8 |         0 |     1 | True      |
+   | 1312                                 | SL1.1-2048-16                   |   2048 |   16 |         0 |     1 | True      |
+   | 1313                                 | SL1.2-4096-32                   |   4096 |   32 |         0 |     2 | True      |
+   | 1314                                 | SL1.2-8192-64                   |   8192 |   64 |         0 |     2 | True      |
+   +--------------------------------------+---------------------------------+--------+------+-----------+-------+-----------+
+   ```
+
+   Для большей информации о команде `openstack --help`. [Документация](https://registry.terraform.io/providers/terraform-provider-openstack/openstack/latest/docs) о том, как грамотно использовать resource и data sources terraform в связке с openstack. 
+   </details>
+
+----
+
 Далее создаем серверы:
 - Инициализация рабочего каталога `terraform init` (необходимые terraform-providers уже имеются в данном репозитории)
 - Посмотреть какие серверы и параметры будут созданы `terraform plan` 
 - Начать создания серверов `terraform apply`
-
+   ```HCL
+   Destroy complete! Resources: 19 destroyed.
+   ```
+Если нужно удалить все серверы, то используйте с начала `terraform refresh` и `terraform destroy` и получаем такой вывод:
+   ```HCL
+   Destroy complete! Resources: 19 destroyed.
+   ```
 ## Шаг 2. Связность серверов
 После того как серверы созданы, необходимо убедиться, что они имеют связность между собой.
 - Запускаем скрипт `setup2.sh`, который заполняет нужные файлы данными для развертывания проекта.
@@ -243,4 +307,4 @@ ansible-playbook MEGALLAMA.yml
 
 
 # P.S.
-Файл `alert.yaml` за паролен, т.к. содержит токены в приватный канал телеграмма. Пример шаблона для алертов будет указан по пути `/root/Llama/ansible/docker-grafana/grafana/files/provisioning/alert.yaml`
+Файл `alert.yaml` за паролен, т.к. содержит токены в приватный канал телеграмма. Пример шаблона для алертов будет указан по пути `~/Llama/ansible/docker-grafana/grafana/files/provisioning/alert.yaml`
