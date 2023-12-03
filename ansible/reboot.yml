@@ -10,12 +10,16 @@
         test_command: whoami
       async: 0
       poll: 0
-      ignore_errors: yes
 
-    - name: Выполнение команды whoami после перезагрузки
-      command: echo "Ура!!! Проверяй работоспособность MEGALLAMA"
+    - name: ======================== Выполнение команды whoami после перезагрузки ========================
+      command: echo "Ура!!! Проверяй работоспособность MEGALLAMA :3000"
       register: whoami_result
 
     - name: Отладочное сообщение с результатом whoami
       debug:
         var: whoami_result.stdout
+
+    - name: ======================== Вывод ссылки после успешной проверки ========================
+      debug:
+        msg: "перейди по ссылке http://{{ groups['module_master_fip_tf'][0] }}:3000 "
+      when: whoami_result.rc == 0
