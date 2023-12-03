@@ -11,6 +11,7 @@
     - [Шаг 1. Terraform и Openstack](#шаг-1-terraform-и-openstack)
     - [Шаг 2. Связность серверов](#шаг-2-связность-серверов)
     - [Шаг 3. Запуск MegaLLama](#шаг-3-запуск-megallama)
+    - [Запукс для ленивых и кто не хочет разбираться](#запукс-для-ленивых-и-кто-не-хочет-разбираться)
     - [P.S.](#ps)
 </details>
 
@@ -80,46 +81,6 @@ data "openstack_images_image_v2" "ubuntu_image" {
 
 </details>
 
-<details>
-<summary>Запуск для ленивых и кто не хочет разбираться</summary>
-    
-1. Убедились, что наш сервер на дистрибутиве Ubuntu 20.04 и выполняем:
-```bash
-apt update && apt install git -y
-```
-```bash
-git clone https://github.com/LoMkkka/Llama.git
-```
-2. Запускаем скрипт `prepare.sh`.
-```bash
-~/Llama/prepare.sh
-```    
-3. Мы авторизировались в openstack api через `source rc.sh`, который был скачан из Шага 1.
-
-4. Создаем серверы.
-```bash
-cd ~/Llama/terraform
-terraform init
-terraform apply -auto-approve
-```
-5. После того как серверы создались запуcкаем скрипт `replacer.sh`.
-```bash
-~/Llama/replacer.sh
-```
-6. Проверяем связность нод между собой. Когда всплывет запрос об fingerprint ключа ECDSA пишем `yes` и дважды выполняем данный playbook.
-```bash
-cd ~/Llama/ansible
-ansible-playbook test.yml
-```
-7. Запускаем проект и ждем...
-```bash
-cd ~/Llama/ansible
-ansible-playbook MEGALLAMA.yml
-```
-8. В конце будет вывод ссылки по которой нужно перейти. Пароль от grafana стандартный admin/admin. В `dashboards` находим llama, переходим по ней и радуемся.
-![image](https://github.com/LoMkkka/Llama/assets/76530062/ae406dae-e5f3-468c-87e0-25f2ea97fd36)
-
-</details>
 
 В самом конце будет пункт про пароли.
 проверенно на
@@ -182,6 +143,48 @@ PLAY RECAP **********************
 - 'B', - текущий Rtt ноды
 - 'C' - статус ноды (1- выключена, 0 - включена) 
 
+## Запукс для ленивых и кто не хочет разбираться
+
+<details>
+<summary>Запуск для ленивых и кто не хочет разбираться</summary>
+    
+1. Убедились, что наш сервер на дистрибутиве Ubuntu 20.04 и выполняем:
+```bash
+apt update && apt install git -y
+```
+```bash
+git clone https://github.com/LoMkkka/Llama.git
+```
+2. Запускаем скрипт `prepare.sh`.
+```bash
+~/Llama/prepare.sh
+```    
+3. Мы авторизировались в openstack api через `source rc.sh`, который был скачан из Шага 1.
+
+4. Создаем серверы.
+```bash
+cd ~/Llama/terraform
+terraform init
+terraform apply -auto-approve
+```
+5. После того как серверы создались запуcкаем скрипт `replacer.sh`.
+```bash
+~/Llama/replacer.sh
+```
+6. Проверяем связность нод между собой. Когда всплывет запрос об fingerprint ключа ECDSA пишем `yes` и дважды выполняем данный playbook.
+```bash
+cd ~/Llama/ansible
+ansible-playbook test.yml
+```
+7. Запускаем проект и ждем...
+```bash
+cd ~/Llama/ansible
+ansible-playbook MEGALLAMA.yml
+```
+8. В конце будет вывод ссылки по которой нужно перейти. Пароль от grafana стандартный admin/admin. В `dashboards` находим llama, переходим по ней и радуемся.
+![image](https://github.com/LoMkkka/Llama/assets/76530062/ae406dae-e5f3-468c-87e0-25f2ea97fd36)
+
+</details>
 
 
 # P.S.
