@@ -89,7 +89,7 @@ git clone https://github.com/LoMkkka/Llama.git
 
 5. Безопасность
 
-   В проекте существуют чувствительные данные на которые необходимо обратить внимание. В файлах `~/Llama/ansible/docker-influxdb/influxdb/defaults main. yml` и `~/Llama/ansible/docker-llama/scraper/defaults/main.yml` рекомендуется менять только строки связанные с user и password.
+   В проекте существуют чувствительные данные на которые необходимо обратить внимание. В файлах `~/Llama/ansible/docker-influxdb/influxdb/defaults/main.yml` и `~/Llama/ansible/docker-llama/scraper/defaults/main.yml` рекомендуется менять только строки связанные с user и password.
    ```yaml
    #influxdb/defaults/main.yml
    influxdb_http_ip: localhost
