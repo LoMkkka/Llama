@@ -12,14 +12,11 @@
       poll: 0
 
     - name: ======================== Выполнение команды whoami после перезагрузки ========================
-      command: echo "Ура!!! Проверяй работоспособность MEGALLAMA :3000"
+      command: echo "Еще чуть-чуть"
       register: whoami_result
 
-    - name: Отладочное сообщение с результатом whoami
-      debug:
-        var: whoami_result.stdout
 
     - name: ======================== Вывод ссылки после успешной проверки ========================
       debug:
-        msg: "перейди по ссылке http://{{ groups['module_master_fip_tf'][0] }}:3000 "
+        msg: "Ура!!! Проверяй работоспособность MEGALLAMA по ссылке http://{{ groups['module_master_fip_tf'][0] }}:3000 "
       when: whoami_result.rc == 0
