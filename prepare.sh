@@ -11,10 +11,10 @@ cp terraform-inventory /usr/local/bin
 # Генерация ssh ключа
 ssh-keygen
 # Зеркало
-cp .terraformrc ~/
+cp files/.terraformrc ~/
 ### Передача ssh ключа в переменную для master  
 ssh_key_path=`cat ~/.ssh/id_rsa.pub`
 echo $ssh_key_path
 word="put" 
-file="~/Llama/terraform/master/vars.tf"
+file="./terraform/master/vars.tf"
 sed -i "s#$word#$ssh_key_path#" "$file"
