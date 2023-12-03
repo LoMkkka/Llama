@@ -66,25 +66,28 @@ data "openstack_images_image_v2" "ubuntu_image" {
     
 1. Убедились, что наш сервер на дистрибутиве ubuntu и выполняем:
 ```bash
-    apt update && apt install git -y
-    git clone https://github.com/LoMkkka/Llama.git
-
+apt update && apt install git -y
 ```
-2. Мы авторизировались в openstack api через `source rc.sh`, который был скачан из Шага 1.
-3. Запускаем скрипт `prepare.sh`
 ```bash
-    ~/Llama/prepare.sh
+git clone https://github.com/LoMkkka/Llama.git
+```
+2. Запускаем скрипт `prepare.sh`
+```bash
+~/Llama/prepare.sh
 ```    
+3. Мы авторизировались в openstack api через `source rc.sh`, который был скачан из Шага 1.
+
 4. Создаем серверы
-    ```bash
-    cd ~/Llama/terraform
-    terraform init
-    terraform apply -auto-approve
-    ```
-5. Запсукаем скрипт `replacer`
 ```bash
-    ~/Llama/replacer.sh
-```    
+cd ~/Llama/terraform
+terraform init
+terraform apply -auto-approve
+```
+5. После того как серверы создались запсукаем скрипт `replacer.sh`
+```bash
+~/Llama/replacer.sh
+```
+6.
 </details>
 
 В самом конце будет пункт про пароли.
